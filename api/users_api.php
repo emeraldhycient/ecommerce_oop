@@ -44,12 +44,17 @@ class usersApi extends dbConnection{
         if($q){
             if($q->num_rows > 0){
              $row =$q->fetch_object();
+             if(password_verify($password,$row->pass)){
              $_SESSION["user_id"] = $row->id;
              $message["status"] = "success";
              $message["redirect"] = "<script>location.href='../views/dashboard.php'</script>";
+             }else{
+                $message["status"] = "failed";
+                $message["message"] = "invalid login credentials";  
+             }
             }else{
                 $message["status"] = "failed";
-                $message["message"] = "invalid credentials";   
+                $message["message"] = "invalid login credentials";   
             }
         }else{
             $message["status"] = "failed";
