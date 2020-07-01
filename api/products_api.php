@@ -9,13 +9,13 @@ class productApi extends dbConnection{
     $readData = [];
     if($q){
         if($q->num_rows > 0){
-               $readData["message"] = "successful";
+               $readData["status"] = "successful";
                $readData["data"] = $q;
         }else{
            $readData["message"] = "no data found";
         }
     }else{
-         $readData["message"] = "failed";
+         $readData["status"] = "failed";
          $readData["error"] = $this->conn->error;
     }
     return $readData;
@@ -26,13 +26,13 @@ class productApi extends dbConnection{
         $readData = [];
         if($q){
             if($q->num_rows > 0){
-                   $readData["message"] = "successful";
+                   $readData["status"] = "successful";
                    $readData["data"] = $q;
             }else{
-               $readData["message"] = "no data found";
+               $readData["status"] = "no data found";
             }
         }else{
-             $readData["message"] = "failed";
+             $readData["status"] = "failed";
              $readData["error"] = $this->conn->error;
         }
         return $readData;
@@ -44,30 +44,31 @@ class productApi extends dbConnection{
         $readData = [];
         if($q){
             if($q->num_rows > 0){
-                   $readData["message"] = "successful";
+                   $readData["status"] = "successful";
                    $readData["data"] = $q;
             }else{
-               $readData["message"] = "no data found";
+               $readData["status"] = "no data found";
             }
         }else{
-             $readData["message"] = "failed";
+             $readData["status"] = "failed";
              $readData["error"] = $this->conn->error;
         }
         return $readData;
     }
     public function singleProduct($id){
+        $id = $this->filter($id);
         $sql = "SELECT * FROM product WHERE id='$id'";
         $q = $this->conn->query($sql);
         $readData = [];
         if($q){
             if($q->num_rows > 0){
-                   $readData["message"] = "successful";
+                   $readData["status"] = "successful";
                    $readData["data"] = $q;
             }else{
-               $readData["message"] = "no data found";
+               $readData["status"] = "no data found";
             }
         }else{
-             $readData["message"] = "failed";
+             $readData["status"] = "failed";
              $readData["error"] = $this->conn->error;
         }
         return $readData;
@@ -93,9 +94,10 @@ class productApi extends dbConnection{
         $q = $this->conn->query($sql);
         $message = [];
         if($q){
+            $message["status"] = "success";
            $message["redirect"] = "<script>location.href='../views/dashboard.php'</script>";
         }else{
-               $message["error_message"] = "query could not be excuted";
+               $message["status"] = "failed";
                $message["error"] = $this->conn->error; 
         }
     }
@@ -113,13 +115,13 @@ class productApi extends dbConnection{
         $readData = [];
         if($q){
             if($q->num_rows > 0){
-                   $readData["message"] = "successful";
+                   $readData["status"] = "successful";
                    $readData["data"] = $q;
             }else{
-               $readData["message"] = "no data found";
+               $readData["status"] = "no data found";
             }
         }else{
-             $readData["message"] = "failed";
+             $readData["status"] = "failed";
              $readData["error"] = $this->conn->error;
         }
         return $readData;
