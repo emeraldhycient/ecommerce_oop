@@ -12,6 +12,7 @@ class productApi extends dbConnection{
                $readData["status"] = "successful";
                $readData["data"] = $q;
         }else{
+            $readData["status"] = "failed";
            $readData["message"] = "no data found";
         }
     }else{
@@ -26,10 +27,11 @@ class productApi extends dbConnection{
         $readData = [];
         if($q){
             if($q->num_rows > 0){
-                   $readData["status"] = "successful";
+                   $readData["status"] = "success";
                    $readData["data"] = $q;
             }else{
-               $readData["status"] = "no data found";
+                $readData["status"] = "failed";
+                $readData["message"] = "no data found";
             }
         }else{
              $readData["status"] = "failed";
@@ -47,7 +49,8 @@ class productApi extends dbConnection{
                    $readData["status"] = "successful";
                    $readData["data"] = $q;
             }else{
-               $readData["status"] = "no data found";
+                $readData["status"] = "failed";
+                $readData["message"] = "no data found";
             }
         }else{
              $readData["status"] = "failed";
@@ -65,7 +68,8 @@ class productApi extends dbConnection{
                    $readData["status"] = "successful";
                    $readData["data"] = $q;
             }else{
-               $readData["status"] = "no data found";
+                $readData["status"] = "failed";
+               $readData["message"] = "no data found";
             }
         }else{
              $readData["status"] = "failed";
@@ -115,10 +119,11 @@ class productApi extends dbConnection{
         $readData = [];
         if($q){
             if($q->num_rows > 0){
-                   $readData["status"] = "successful";
+                   $readData["status"] = "success";
                    $readData["data"] = $q;
             }else{
-               $readData["status"] = "no data found";
+                $readData["status"] = "failed";
+                $readData["message"] = "no data found";
             }
         }else{
              $readData["status"] = "failed";

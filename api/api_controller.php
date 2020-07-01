@@ -10,7 +10,7 @@ $vendorApi = new vendorsApi;
 
 $product = $productApi->fetchReview(23);
 
-if($product["message"] == "successful" )
+if($product["status"] == "success" )
 {
      while($row = $product["data"]->fetch_object()){
           echo $row->review;
