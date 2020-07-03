@@ -17,9 +17,10 @@ class usersApi extends dbConnection{
         $lastName = $this->filter($lastName);
         if($password1 === $password2){
             $password = password_hash($password1,PASSWORD_BCRYPT);
-        $sql = "INSERT INTO users (id,username,email,pass,personal_address,phone,firstname,lastname) VALUES ('$id','$shopUsername',
-        '$email',$password,'$address','$phone','$firstName','$lastName') ";
-        $q = $this->conn->query();
+        $sql = "INSERT INTO users (id,username,email,pass,personal_address,phone,firstname,lastname) VALUES (?,?,?,?,?,?,?,?) ";
+        $q = $this->conn->prepare($sql);
+        $q->bind_param("ssssssss",$id,$shopUsername,$email,$password,$address,$phone,$firstName,$lastName);
+        $q->execute();
         if($q){
             $_SESSION["user_id"] = $id;
                $message["status"] = "success";
@@ -33,17 +34,21 @@ class usersApi extends dbConnection{
             $message["message"] = "passwords doesnt match";
         }
         return $message;
+        $q->close();
 
     }
-    public function login($shopUsername,$password){
+    public function login($shopEmail,$password){
         $message = [];
-        $shopUsername = $this->filter($shopUsername);
+        $shopEmail= $this->filter($shopEmail);
         $password = $this->filter($password);
-        $sql = "SELECT * FROM users WHERE email='$shopUsername' OR phone='$shopUsername'";
-        $q = $this->conn->query($sql);
+        $sql = "SELECT * FROM users WHERE email= ? ";
+        $q = $this->conn->prepare($sql);
+        $q->bind_param("s",$shopEmail);
+        $q->execute();
+        $result = $q->get_result();
         if($q){
-            if($q->num_rows > 0){
-             $row =$q->fetch_object();
+            if($result->num_rows > 0){
+             $row =$result->fetch_object();
              if(password_verify($password,$row->pass)){
              $_SESSION["user_id"] = $row->id;
              $message["status"] = "success";
@@ -61,6 +66,7 @@ class usersApi extends dbConnection{
             $message["message"] = $this->conn->error;
         }
         return $message;
+        $q->close();
     }
 
 

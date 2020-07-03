@@ -5,12 +5,14 @@ class productApi extends dbConnection{
     
     public function fetchProductForFlashSales(){
     $sql = "SELECT * FROM product LIMIT 3,12";
-    $q = $this->conn->query($sql);
+    $q = $this->conn->prepare($sql);
+    $q->execute();
+    $result =$q->get_result();
     $readData = [];
     if($q){
-        if($q->num_rows > 0){
+        if($result->num_rows > 0){
                $readData["status"] = "successful";
-               $readData["data"] = $q;
+               $readData["data"] = $result;
         }else{
             $readData["status"] = "failed";
            $readData["message"] = "no data found";
@@ -20,15 +22,18 @@ class productApi extends dbConnection{
          $readData["error"] = $this->conn->error;
     }
     return $readData;
+    $q->close();
     }
     public function fetchRecommendedProducts(){
         $sql = "SELECT * FROM product LIMIT 3,9";
-        $q = $this->conn->query($sql);
+        $q = $this->conn->prepare($sql);
+        $q->execute();
+        $result = $q->get_result();
         $readData = [];
         if($q){
-            if($q->num_rows > 0){
+            if($result->num_rows > 0){
                    $readData["status"] = "success";
-                   $readData["data"] = $q;
+                   $readData["data"] = $result;
             }else{
                 $readData["status"] = "failed";
                 $readData["message"] = "no data found";
@@ -38,16 +43,19 @@ class productApi extends dbConnection{
              $readData["error"] = $this->conn->error;
         }
         return $readData;
+        $q->close();
     }
            
     public function fetchLatestProducts(){
         $sql = "SELECT * FROM product LIMIT 4,9";
-        $q = $this->conn->query($sql);
+        $q = $this->conn->prepare($sql);
+        $q->execute();
+        $result = $q->get_result();
         $readData = [];
         if($q){
-            if($q->num_rows > 0){
+            if($result->num_rows > 0){
                    $readData["status"] = "successful";
-                   $readData["data"] = $q;
+                   $readData["data"] = $result;
             }else{
                 $readData["status"] = "failed";
                 $readData["message"] = "no data found";
@@ -57,16 +65,19 @@ class productApi extends dbConnection{
              $readData["error"] = $this->conn->error;
         }
         return $readData;
+        $q->close();
     }
     public function singleProduct($id){
         $id = $this->filter($id);
-        $sql = "SELECT * FROM product WHERE id='$id'";
-        $q = $this->conn->query($sql);
+        $q = $this->conn->prepare("SELECT * FROM product WHERE id= ? ");
+        $q->bind_param("s",$id);
+        $q->execute();
+        $result = $q->get_result();
         $readData = [];
         if($q){
-            if($q->num_rows > 0){
+            if($result->num_rows > 0){
                    $readData["status"] = "successful";
-                   $readData["data"] = $q;
+                   $readData["data"] = $result;
             }else{
                 $readData["status"] = "failed";
                $readData["message"] = "no data found";
@@ -76,6 +87,7 @@ class productApi extends dbConnection{
              $readData["error"] = $this->conn->error;
         }
         return $readData;
+        $q->close();
     }
     public function insertProduct($title,$shortdes,$longdes,$price,$img,$quantity,$discount,$cat){
         $shopId ="" ;
@@ -94,8 +106,9 @@ class productApi extends dbConnection{
     }
     public function deleteProduct($productid){
         $productid = $this->filter($productid);
-        $sql = "DELETE FROM product WHERE id='$productid' ";
-        $q = $this->conn->query($sql);
+        $q = $this->conn->prepare("DELETE FROM product WHERE id= ? ");
+        $q->bind_param("s",$productid);
+        $q->execute;
         $message = [];
         if($q){
             $message["status"] = "success";
@@ -104,23 +117,29 @@ class productApi extends dbConnection{
                $message["status"] = "failed";
                $message["error"] = $this->conn->error; 
         }
+        $q->close();
     }
     public function editProduct(){
         
     }
 
     public function submitProductReview($productid,$review,$reviewer){
+        $productid = $this->filter($productid);
+        $review =  $this->filter($review);
+        $reviewer =  $this->filter($reviewer);
         
     }
     public function fetchReview($productid){
         $productid = $this->filter($productid);
-        $sql = "SELECT * FROM reviews WHERE productid='$productid'";
-        $q = $this->conn->query($sql);
+        $q = $this->conn->prepare("SELECT * FROM reviews WHERE productid =?");
+        $q->bind_param("s",$productid);
+        $q->execute();
+        $result = $q->get_result();
         $readData = [];
         if($q){
-            if($q->num_rows > 0){
+            if($result->num_rows > 0){
                    $readData["status"] = "success";
-                   $readData["data"] = $q;
+                   $readData["data"] = $result;
             }else{
                 $readData["status"] = "failed";
                 $readData["message"] = "no data found";
@@ -130,6 +149,7 @@ class productApi extends dbConnection{
              $readData["error"] = $this->conn->error;
         }
         return $readData;
+        $q->close();
     }
 
 }

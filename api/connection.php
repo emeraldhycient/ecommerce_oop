@@ -20,7 +20,7 @@ session_start();
         $hackvar = trim($hackvar);
         $hackvar = stripslashes($hackvar);
         $hackvar = htmlspecialchars($hackvar);
-               return $hackvar; 
+               return $this->conn->real_escape_string($hackvar); 
     }
 
  }
