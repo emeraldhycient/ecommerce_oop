@@ -8,7 +8,12 @@ $productApi = new productApi;
 $usersApi = new usersApi;
 $vendorApi = new vendorsApi;
 
-$product = $productApi->fetchReview(23);
+if(isset($_FILES["vid"])){
+     $product =$productApi->insertProduct("","","",$_FILES["image"],"","","",$_FILES["vid"]);
+     echo json_encode($product);
+}
+
+/*$product = $productApi->fetchReview(23);
 
 if($product["status"] == "success" )
 {
@@ -39,7 +44,7 @@ if($user["status"] == "success" )
     echo json_encode($user);
 }
 
-
+*/
 
 
 
