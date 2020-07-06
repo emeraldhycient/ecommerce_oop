@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>views/dashboard</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav class="container">
+            <div class="row">
+                <div class="col-md-8 m-auto">
+                    <h3 class="mt-2"><span class="text-info">Wona</span>-Shop</h3>
+                    <form class="form-inline offset-6">
+                        <input type="text" name="searchbar" class="form-control col" id="searchbar">
+                        <button class="btn btn-info btn-sm" id="searchbtn"><i class="fa fa-search"></i></button>
+                    </form>
+                    <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20" aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation">
+                            <div class="animated-icon1"><span></span><span></span><span></span></div>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 m-auto">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+                    <hr>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item bg-warning">
+                            <h6> <a href="" class=""><i class="fa fa-dashboard p-2"></i>dashboard</a></h6>
+                        </li>
+                        <li class="nav-item active">
+                            <h6> <a href="" class=""><i class="fa fa-cloud-upload p-2"></i>Products</a></h6>
+                        </li>
+                        <li class="nav-item">
+                            <h6><a href="" class=""><i class="fa fa-image p-2"></i>Images</a></h6>
+                        </li>
+                        <li class="nav-item">
+                            <h6><a href="" class=""><i class="fa fa-camera p-2"></i>videos</a></h6>
+                        </li>
+                        <li class="nav-item">
+                            <h6><a href="" class=""><i class="fa fa-envelope p-2"></i>Messages</a></h6>
+                        </li>
+                        <li class="nav-item">
+                            <h6><a href="" class=""><i class="fa fa-bell p-2"></i>Orders</a></h6>
+                        </li>
+                        <li class="nav-item">
+                            <h6><a href="" class=""><i class="fa fa-cart-arrow-down  p-2"></i>Sold out</a></h6>
+                        </li>
+                        <li class="nav-item">
+                            <h6><a href="" class=""><i class="fa fa-money p-2"></i>Wallet</a></h6>
+                        </li>
+                        <li class="nav-item">
+                            <h6><a href="" class=""><i class="fa fa-cogs p-2"></i>Settings</a></h6>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 side">
+                <ul class="pt-2">
+                    <li class="bg-warning p-2">
+                        <h6> <a href="" class="text-white "><i class="fa fa-dashboard p-2"></i>dashboard</a></h6>
+                    </li><br>
+                    <li class="">
+                        <h6> <a href="" class="text-white "><i class="fa fa-cloud-upload p-2"></i>Products</a></h6>
+                    </li><br>
+                    <li>
+                        <h6><a href="" class="text-white"><i class="fa fa-image p-2"></i>Images</a></h6>
+                    </li><br>
+                    <li>
+                        <h6><a href="" class="text-white"><i class="fa fa-camera p-2"></i>videos</a></h6>
+                    </li><br>
+                    <li>
+                        <h6><a href="" class="text-white"><i class="fa fa-bell p-2"></i>Orders</a></h6>
+                    </li><br>
+                    <li>
+                        <h6><a href="" class="text-white"><i class="fa fa-money p-2"></i>Wallet</a></h6>
+                    </li><br>
+                    <li>
+                        <h6><a href="" class="text-white"><i class="fa fa-envelope p-2"></i>Messages</a></h6>
+                    </li><br>
+                    <li>
+                        <h6><a href="" class="text-white"><i class="fa fa-cart-arrow-down p-2"></i>Sold out</a></h6>
+                    </li><br>
+                    <li>
+                        <h6><a href="" class="text-white"><i class="fa fa-cogs p-2"></i>Settings</a></h6>
+                    </li><br>
+                </ul>
+
+            </div>
+            <div class="col-md-10 m-auto">
+                <div class="addnew">
+                    <button class="btn btn-info btn-sm m-2 newpost1" data-toggle="modal" data-target="#exampleModal"><b>+</b>post</button>
+                </div><br><br>
+                <div class="container-fluid boxes">
+                    <div class="row">
+                        <div class="col-md-2 card m-2 bg-danger text-white">
+                            <div class="d-flex">
+                                <i class="fa fa-cloud-upload mt-3 pr-2" style="font-size:2em;"></i>
+                                <div>
+                                    <center>
+                                        <h5>Total Products</h5>
+                                        <h6><b>30</b></h6>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 card m-2 bg-warning text-white">
+                            <div class="d-flex">
+                                <i class="fa fa-camera mt-3 pr-2" style="font-size:2em;"></i>
+                                <div>
+                                    <center>
+                                        <h5>Total Videos</h5>
+                                        <h6><b>30</b></h6>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 card m-2 bg-info text-white">
+                            <div class="d-flex">
+                                <i class="fa fa-image mt-3 pr-2" style="font-size:2em;"></i>
+                                <div>
+                                    <center>
+                                        <h5>Total Images</h5>
+                                        <h6><b>30</b></h6>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 card m-2 bg-primary text-white">
+                            <div class="d-flex">
+                                <i class="fa fa-bell mt-3 pr-2" style="font-size:2em;"></i>
+                                <div>
+                                    <center>
+                                        <h5>Total Orders</h5>
+                                        <h6><b>30</b></h6>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 card m-2 bg-light text-warning">
+                            <div class="d-flex">
+                                <i class="fa fa-money mt-3 pr-2" style="font-size:2em;"></i>
+                                <div>
+                                    <center>
+                                        <h5>Total Wallet</h5>
+                                        <h6><b>30</b></h6>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 card m-2 bg-success text-white">
+                            <div class="d-flex">
+                                <i class="fa fa-envelope mt-3 pr-2" style="font-size:2em;"></i>
+                                <div>
+                                    <center>
+                                        <h5>Total Messages</h5>
+                                        <h6><b>30</b></h6>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 card m-2 bg-muted text-warning text-white">
+                            <div class="d-flex">
+                                <i class="fa fa-cart-arrow-down mt-3 pr-2" style="font-size:2em;"></i>
+                                <div>
+                                    <center>
+                                        <h5>All Sold Out</h5>
+                                        <h6><b>30</b></h6>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 card m-2 bg-dark text-white">
+                            <div class="d-flex">
+                                <i class="fa fa-cloud-upload mt-3 pr-2" style="font-size:2em;"></i>
+                                <div>
+                                    <center>
+                                        <h5>Total Products</h5>
+                                        <h6><b>30</b></h6>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script src=" https://code.jquery.com/jquery-3.5.1.js "></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js "></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js "></script>
+<script src="../assets/script.js"></script>
+</script>
+
+</html>
