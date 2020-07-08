@@ -98,29 +98,28 @@ class productApi extends dbConnection{
         $longDesc = $this->filter($longdesc);
         $price = $this->filter($price);
         $imgExt = pathinfo($img["name"],PATHINFO_EXTENSION);
-        $imgPath ="../assets/products/".$genFileName.$imgExt;
-        $imgName = $genFileName.".".$imgExt;
+        $imgPath ="../assets/products/".$genFileName.".".$imgExt;
+        $imgName = "Img".$genFileName.".".$imgExt;
         $imgSize = $img["size"];
         $vidExt = pathinfo($video["name"],PATHINFO_EXTENSION);
-        $vidPath = "../assets/products/".$genFileName.$vidExt;
+        $vidPath = "../assets/products/".$genFileName.".".$vidExt;
         $vidSize = $video["size"];
-        $vidName = $genFileName.".".$vidExt;
+        $vidName = "Vid".$genFileName.".".$vidExt;
         $quantity = $this->filter($quantity,);
-        $discount = $this->filter($discount);
+        $discountByPercent = $this->filter($discount);
+        $discount = ($discountByPercent/100)*$price;
         $category = $this->filter($category);
         $shop_id = $_SESSION["shop_id"];
         $message = [];
          if( ($vidSize <= $maximumUploadSize && $imgSize <= $maximumUploadSize) && ($vidSize != 0 && $imgSize != 0)){
              if(in_array($vidExt,['mp4','mpg','mpeg','m4v']) && in_array($imgExt,['gif','png','jpeg','jpg'])){
                  if(move_uploaded_file($img["tmp_name"],$imgPath) && move_uploaded_file($video["tmp_name"],$vidPath) ){
-                     $sql = "INSERT INTO product(id,p_title,longdesc,shop_id,photo,preview,quantity,price,discount,cat)
-                      VALUES (?,?,?,?,?,?,?,?,?,?)";
-                     $q = $this->conn->prepare($sql);
-                     $q->bind_param("ssssssssss",$productId,$longDesc,$shop_id,$imgName,$vidName,$quantity,$price,$discount,$category);
-                     $q->execute();
-                     if($q->affected_rows > 0){
+                     $sql = "INSERT INTO product (	productid,p_title,longdesc,shop_id,photo,preview,quantity,price,discount,cat)
+                      VALUES ('$productId','$title','$longDesc','$shop_id','$imgName','$vidName','$quantity','$price','$discount','$category')";
+                     $q = $this->conn->query($sql);
+                     if($q){
                 $message["status"] = "success";
-                $message["message"] = "file properties okay and file names are vid:".$vidName."while img:".$imgName;
+                $message["redirect"] = "<script>window.location.href='../views/dashboard.html'</script>";
                      }else{
                         $message["status"] = "failed";
                         $message["message"] = $this->conn->error;
@@ -137,7 +136,6 @@ class productApi extends dbConnection{
             $message["status"] = "failed";
             $message["message"] = "file too large"; 
          }
-         $q->close();
          return $message;
 
     }

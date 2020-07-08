@@ -17,7 +17,7 @@ class usersApi extends dbConnection{
         $lastName = $this->filter($lastName);
         if($password1 === $password2){
             $password = password_hash($password1,PASSWORD_BCRYPT);
-        $sql = "INSERT INTO users (id,username,email,pass,personal_address,phone,firstname,lastname) VALUES (?,?,?,?,?,?,?,?) ";
+        $sql = "INSERT INTO users (users_id,username,email,pass,personal_address,phone,firstname,lastname) VALUES (?,?,?,?,?,?,?,?) ";
         $q = $this->conn->prepare($sql);
         $q->bind_param("ssssssss",$id,$shopUsername,$email,$password,$address,$phone,$firstName,$lastName);
         $q->execute();

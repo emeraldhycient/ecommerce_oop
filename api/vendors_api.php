@@ -15,11 +15,9 @@ class vendorsApi extends dbConnection{
         $password2 = $this->filter($password2);
         if($password1 === $password2){
             $password = password_hash($password1,PASSWORD_BCRYPT);
-        $sql = "INSERT INTO merchants (shop_id,shopusername,office_address,phone,email,pass) VALUES (?,?,?,?,?,?) ";
-        $q = $this->conn->prepare($sql);
-        $q->bind_param("ssssss",$id,$shopUsername,
-        $address,$phone,$email,$password);
-        $q->execute();
+        $sql = "INSERT INTO merchants (shop_id,shopusername,office_address,phone,email,pass) VALUES ('$id','$shopUsername',
+        '$address','$phone','$email','$password') ";
+        $q = $this->conn->query($sql);
         if($q){
             $_SESSION["shop_id"] = $id;
                $message["status"] = "success";
@@ -40,13 +38,10 @@ class vendorsApi extends dbConnection{
         $shopEmail = $this->filter($shopEmail);
         $password = $this->filter($password);
         $sql = "SELECT * FROM merchants WHERE email=?";
-        $q = $this->conn->prepare($sql);
-        $q->bind_param("s",$shopEmail);
-        $q->execute();
-        $result =$q->get_result();
+        $q = $this->conn->query($sql);
         if($q){
-            if($result->num_rows > 0){
-             $row =$result->fetch_object();
+            if($q->num_rows > 0){
+             $row =$q;
              if(password_verify($password,$row->pass)){
              $_SESSION["shop_id"] = $row->shop_id;
              $message["status"] = "success";

@@ -34,7 +34,7 @@
                     <hr>
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item bg-warning">
-                            <h6> <a href="" class=""><i class="fa fa-dashboard p-2"></i>dashboard</a></h6>
+                            <h6> <a href="" class="text-white"><i class="fa fa-dashboard  p-2"></i>dashboard</a></h6>
                         </li>
                         <li class="nav-item active">
                             <h6> <a href="" class=""><i class="fa fa-cloud-upload p-2"></i>Products</a></h6>
@@ -105,6 +105,41 @@
                     <button class="btn btn-info btn-sm m-2 newpost1" data-toggle="modal" data-target="#exampleModal"><b>+</b>post</button>
                 </div><br><br>
                 <div class="container-fluid boxes">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">New Post</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-group" id="newpost" action="../api/api_controller.php" method="post" enctype="multipart/form-data">
+                                        <input type="text" name="title" class="form-control" placeholder="Product's name" required important><br>
+                                        <label>Video Preview</label>
+                                        <input type="file" name="video" class="form-control" required important>
+                                        <label>Sample Images</label>
+                                        <input type="file" name="photo" class="form-control mb-2" required important>
+                                        <select name="category" class="bg-primary text-white">
+                                                <option>select category</option>
+                                                <option value="Furniture">Furniture</option>
+                                                <option value="Kitchen_Accessories">Kitchen Accessories</option>
+                                                <option value="Fashion_Wears">Fashion Wears</option>
+                                                <option value="Electronics">Electronics</option>
+                                                <option value="General_Office_Home_fittens">General Office/Home fittens</option>
+                                        </select><br><br>
+                                        <input type="number" name="price" class="form-control" placeholder="Product's price" required important><br>
+                                        <input type="number" name="quantity" class="form-control" placeholder="quantity of product" required important><br>
+                                        <input type="text" name="discount" class="form-control" placeholder="available discount by percent" required important><br>
+                                        <textarea class="form-control" name="longdesc" placeholder="...Product detailed description" rows="7px" required important></textarea><br>
+                                        <input type="submit" class="btn btn-primary offset-10" name="submitpost" id="submitbtn" value="post">
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-2 card m-2 bg-danger text-white">
                             <div class="d-flex">
@@ -177,7 +212,7 @@
                                 <i class="fa fa-cart-arrow-down mt-3 pr-2" style="font-size:2em;"></i>
                                 <div>
                                     <center>
-                                        <h5>All Sold Out</h5>
+                                        <h5>Total Sales</h5>
                                         <h6><b>30</b></h6>
                                     </center>
                                 </div>
