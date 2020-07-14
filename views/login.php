@@ -1,3 +1,10 @@
+<?php
+ require_once("../api/api_controller.php");
+
+ if(isset($_SESSION["shop_id"])){
+            header("location : dashboard.php");
+ }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,21 +46,21 @@
                 <center>
                     <h5>Login As A Vendor</h5>
                 </center>
-                <form method="POST" action="../api/api_controller.php" enctype="multipart/form-data" id="loginform">
+                <form method="POST" enctype="multipart/form-data" id="loginform" class="form-group">
                     <label>Email :</label>
-                    <input type="email" name="vendor_email" class="form-control mb-2" required important>
+                    <input type="email" name="vendor_email_login" id="vendor_email_login" class="form-control mb-2" required important>
                     <label>Password :</label>
-                    <input type="text" name="vendor_pass" class="form-control mb-2" required important>
-                    <input type="submit" class="btn btn-success btn-sm" name="vendor_login" value="login" style="float:right;">
+                    <input type="text" name="vendor_pass_login" id="vendor_pass_login" class="form-control mb-2" required important>
+                    <input type="submit" class="btn btn-success btn-sm" value="login" style="float:right;">
                 </form>
                 <a href="./register.html" id="registerlink">Become A Vendor</a>
             </div>
             <div class="col-md-5 m-auto registerForm">
                 <center>
                     <h5>Become A Vendor</h5>
-                    <p>Register As A Vendor</p>
+                    <p class="text-info">Register As A Vendor</p>
                 </center>
-                <form method="POST" action="../api/api_controller.php" enctype="multipart/form-data" id="registerform" class="form-group">
+                <form method="POST" enctype="multipart/form-data" id="registerform" class="form-group">
                     <label>Comapny Name :</label>
                     <input type="text" name="vendor_username" id="vendor_username" class="form-control mb-2" required important>
                     <label>Office Address :</label>
@@ -66,13 +73,13 @@
                     <input type="text" name="vendor_pass" id="vendor_pass" class="form-control mb-2" required important>
                     <label>Confirm Password :</label>
                     <input type="text" name="vendor_cpass" id="vendor_cpass" class="form-control mb-2" required important>
-                    <input type="submit" class="btn btn-primary btn-sm" id="register" name="vendor_register" value="register" style="float:right;">
+                    <input type="submit" class="btn btn-primary btn-sm" id="register" value="register" style="float:right;">
                 </form>
             </div>
         </div>
     </main><br>
 </body>
-<script src=" https://code.jquery.com/jquery-3.5.1.js "></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js "></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js "></script>
 <script src="../assets/script.js"></script>

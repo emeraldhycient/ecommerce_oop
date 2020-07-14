@@ -1,3 +1,14 @@
+<?php
+ require_once("../api/api_controller.php");
+
+ if(!isset($_SESSION["shop_id"])){
+                die("<br><br><center>NO DIRECT ACCESS ALLWED<br><br>
+                             please login or create account  <a href='./login.php'>here</a></center>                
+                ");
+                exit();
+ }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,6 +71,9 @@
                         <li class="nav-item">
                             <h6><a href="" class=""><i class="fa fa-cogs p-2"></i>Settings</a></h6>
                         </li>
+                        <li class="nav-item">
+                        <h6 id="logout"><a class=""><i class="fa fa-sign-out p-2"></i>logout</a></h6>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -96,7 +110,10 @@
                     </li><br>
                     <li>
                         <h6><a href="" class="text-white"><i class="fa fa-cogs p-2"></i>Settings</a></h6>
-                    </li><br>
+                    </li>
+                    <li>
+                    <h6 id="logout"><a class="text-white"><i class="fa fa-sign-out p-2"></i>logout</a></h6>
+                    </li><br><br>
                 </ul>
 
             </div>
@@ -131,7 +148,7 @@
                                         </select><br><br>
                                         <input type="number" name="price" class="form-control" placeholder="Product's price" required important><br>
                                         <input type="number" name="quantity" class="form-control" placeholder="quantity of product" required important><br>
-                                        <input type="text" name="discount" class="form-control" placeholder="available discount by percent" required important><br>
+                                        <input type="text" name="discount" class="form-control" placeholder="available discount by percent"><br>
                                         <textarea class="form-control" name="longdesc" placeholder="...Product detailed description" rows="7px" required important></textarea><br>
                                         <input type="submit" class="btn btn-primary offset-10" name="submitpost" id="submitbtn" value="post">
                                     </form>
@@ -239,6 +256,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js "></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js "></script>
 <script src="../assets/script.js"></script>
+<script>
+    /*
+    
+    SELECT COUNT( * ) as "Number of Rows"
+FROM orders
+WHERE ord_amount>1500;
+    
+    
+    const queryString = window.location.search;
+
+        const urlParams = new URLSearchParams(queryString);
+
+        const cat = urlParams.get('cat');*/
 </script>
 
 </html>

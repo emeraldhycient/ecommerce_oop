@@ -6,13 +6,11 @@ class productApi extends dbConnection{
     public function fetchProductForFlashSales(){
     $sql = "SELECT * FROM product LIMIT 3,12";
     $q = $this->conn->prepare($sql);
-    $q->execute();
-    $result =$q->get_result();
     $readData = [];
     if($q){
-        if($result->num_rows > 0){
+        if($q->num_rows > 0){
                $readData["status"] = "successful";
-               $readData["data"] = $result;
+               $readData["data"] = $q;
         }else{
             $readData["status"] = "failed";
            $readData["message"] = "no data found";
@@ -22,18 +20,15 @@ class productApi extends dbConnection{
          $readData["message"] = $this->conn->error;
     }
     return $readData;
-    $q->close();
     }
     public function fetchRecommendedProducts(){
         $sql = "SELECT * FROM product LIMIT 3,9";
-        $q = $this->conn->prepare($sql);
-        $q->execute();
-        $result = $q->get_result();
+        $q = $this->conn->query($sql);
         $readData = [];
         if($q){
-            if($result->num_rows > 0){
+            if($q->num_rows > 0){
                    $readData["status"] = "success";
-                   $readData["data"] = $result;
+                   $readData["data"] = $q;
             }else{
                 $readData["status"] = "failed";
                 $readData["message"] = "no data found";
@@ -43,19 +38,16 @@ class productApi extends dbConnection{
              $readData["message"] = $this->conn->error;
         }
         return $readData;
-        $q->close();
     }
            
     public function fetchLatestProducts(){
         $sql = "SELECT * FROM product LIMIT 4,9";
-        $q = $this->conn->prepare($sql);
-        $q->execute();
-        $result = $q->get_result();
+        $q = $this->conn->query($sql);;
         $readData = [];
         if($q){
-            if($result->num_rows > 0){
+            if($q->num_rows > 0){
                    $readData["status"] = "successful";
-                   $readData["data"] = $result;
+                   $readData["data"] = $q;
             }else{
                 $readData["status"] = "failed";
                 $readData["message"] = "no data found";
@@ -65,19 +57,16 @@ class productApi extends dbConnection{
              $readData["message"] = $this->conn->error;
         }
         return $readData;
-        $q->close();
     }
     public function singleProduct($id){
         $id = $this->filter($id);
-        $q = $this->conn->prepare("SELECT * FROM product WHERE id= ? ");
-        $q->bind_param("s",$id);
-        $q->execute();
-        $result = $q->get_result();
+        $q = $this->conn->query("SELECT * FROM product WHERE id= '$id' ");
+
         $readData = [];
         if($q){
-            if($result->num_rows > 0){
+            if($q->num_rows > 0){
                    $readData["status"] = "successful";
-                   $readData["data"] = $result;
+                   $readData["data"] = $q;
             }else{
                 $readData["status"] = "failed";
                $readData["message"] = "no data found";
@@ -87,7 +76,6 @@ class productApi extends dbConnection{
              $readData["message"] = $this->conn->error;
         }
         return $readData;
-        $q->close();
     }
     public function insertProduct($title,$longdesc,$price,$img,$quantity,$discount,$category,$video){
         $maximumUploadSize = 1000000;
@@ -105,7 +93,7 @@ class productApi extends dbConnection{
         $vidPath = "../assets/products/".$genFileName.".".$vidExt;
         $vidSize = $video["size"];
         $vidName = "Vid".$genFileName.".".$vidExt;
-        $quantity = $this->filter($quantity,);
+        $quantity = $this->filter($quantity);
         $discountByPercent = $this->filter($discount);
         $discount = ($discountByPercent/100)*$price;
         $category = $this->filter($category);
@@ -119,7 +107,7 @@ class productApi extends dbConnection{
                      $q = $this->conn->query($sql);
                      if($q){
                 $message["status"] = "success";
-                $message["redirect"] = "<script>window.location.href='../views/dashboard.html'</script>";
+                $message["redirect"] = "<script>window.location.href='../views/dashboard.php'</script>";
                      }else{
                         $message["status"] = "failed";
                         $message["message"] = $this->conn->error;
@@ -134,18 +122,19 @@ class productApi extends dbConnection{
          }
          }else{
             $message["status"] = "failed";
-            $message["message"] = "file too large"; 
+            $message["message"] = "<P></P>file size too large.</p><p>current file size,video : ".ceil($vidSize/$maximumUploadSize)."gb
+             picture : ".ceil($imgSize/$maximumUploadSize)."gb</p>
+            <p>expected file size should be 1gb or lesser</p>
+            "; 
          }
          return $message;
 
     }
     public function deleteProduct($productid){
         $productid = $this->filter($productid);
-        $q = $this->conn->prepare("DELETE FROM product WHERE id= ? ");
-        $q->bind_param("s",$productid);
-        $q->execute;
+        $q = $this->conn->query("DELETE FROM product WHERE id= '$productid' ");
         $message = [];
-        if($q->affected_rows > 0){
+        if($q){
             $message["status"] = "success";
            $message["redirect"] = "<script>location.href='../views/dashboard.php'</script>";
         }else{
@@ -153,7 +142,6 @@ class productApi extends dbConnection{
                $message["message"] = $this->conn->error; 
         }
         return $message;
-        $q->close();
     }
     public function editProduct($title,$longdesc,$price,$img,$quantity,$discount,$category,$video,$productId){
         $maximumUploadSize = 1000000;
@@ -163,7 +151,7 @@ class productApi extends dbConnection{
         $title = $this->filter($title);
         $longDesc = $this->filter($longdesc);
         $price = $this->filter($price);
-        $quantity = $this->filter($quantity,);
+        $quantity = $this->filter($quantity);
         $discount = $this->filter($discount);
         $category = $this->filter($category);
         $shop_id = $_SESSION["shop_id"];
@@ -180,13 +168,10 @@ class productApi extends dbConnection{
         if( ($vidSize <= $maximumUploadSize && $imgSize <= $maximumUploadSize) && ($vidSize != 0 && $imgSize != 0)){
             if(in_array($vidExt,['mp4','mpg','mpeg','m4v']) && in_array($imgExt,['gif','png','jpeg','jpg'])){
                 if(move_uploaded_file($img["tmp_name"],$imgPath) && move_uploaded_file($video["tmp_name"],$vidPath) ){
-                    $sql = "UPDATE product SET id = ?,p_title = ?,longdesc = ? ,shop_id = ? ,photo = ? ,preview = ? ,quantity = ? 
-                    ,price = ? ,discount = ? ,cat = ? )
-                     VALUES (?,?,?,?,?,?,?,?,?,?)";
-                    $q = $this->conn->prepare($sql);
-                    $q->bind_param("ssssssssss",$productId,$longDesc,$shop_id,$imgName,$vidName,$quantity,$price,$discount,$category);
-                    $q->execute();
-                    if($q->affected_rows > 0){
+                    $sql = "UPDATE product SET id = '$productId',p_title = '$title',longdesc = '$longDesc' ,shop_id = '$shop_id'
+                     ,photo = '$imgName' ,preview = '$vidName' ,quantity = '$quantity',price = '$price' ,discount ='$discount' ,cat = '$category' ";
+                    $q = $this->conn->query($sql);
+                    if($q){
                $message["status"] = "success";
                $message["message"] = "file properties okay and file names are vid:".$vidName."while img:".$imgName;
                     }else{
@@ -202,17 +187,17 @@ class productApi extends dbConnection{
            $message["message"] = "only upload 'mp4','mpg','mpeg','m4v','gif','png','jpeg','jpg'"; 
         }
         }else{
-           $message["status"] = "failed";
-           $message["message"] = "file too large"; 
+            $message["status"] = "failed";
+            $message["message"] = "<P></P>file size too large.</p><p>current file size,video : ".ceil($vidSize/$maximumUploadSize)."gb
+             picture : ".ceil($imgSize/$maximumUploadSize)."gb</p>
+            <p>expected file size should be 1gb or lesser</p>
+            "; 
         }
         }else{
-            $sql = "UPDATE product SET id = ?,p_title = ?,longdesc = ? ,shop_id = ? ,quantity = ? 
-            ,price = ? ,discount = ? ,cat = ? )
-             VALUES (?,?,?,?,?,?,?,?,?,?)";
-            $q = $this->conn->prepare($sql);
-            $q->bind_param("ssssssssss",$productId,$longDesc,$shop_id,$quantity,$price,$discount,$category);
-            $q->execute();
-            if($q->affected_rows > 0){
+            $sql = "UPDATE product SET id = '$productId',p_title = '$title',longdesc = '$longDesc' ,shop_id = '$shop_id'
+                     ,quantity = '$quantity',price = '$price' ,discount ='$discount' ,cat = '$category' ";
+                    $q = $this->conn->query($sql);
+            if($q){
        $message["status"] = "success";
        $message["message"] = "UPDATED SUCCESSFULLY";
             }else{
@@ -221,7 +206,6 @@ class productApi extends dbConnection{
             }
         }
          
-         $q->close();
          return $message;
 
     }
@@ -231,11 +215,9 @@ class productApi extends dbConnection{
         $review =  $this->filter($review);
         $reviewer =  $this->filter($reviewer);
         $message = [];
-        $sql = "INSERT INTO reviews(productid,review,reviewer) VALUES (?,?,?)";
-        $q = $this->conn->prepare($sql);
-        $q->bind_param("sss",$productid,$review,$reviewer);
-        $q->execute();
-         if($q->affected_rows > 0){
+        $sql = "INSERT INTO reviews(productid,review,reviewer) VALUES ('$productid','$review','$reviewer')";
+        $q = $this->conn->query($sql);
+         if($q->num_rows > 0){
             $message["status"] = "success";
             $message["message"] = "review submitted successfully"; 
          }else{
@@ -246,15 +228,12 @@ class productApi extends dbConnection{
     }
     public function fetchReview($productid){
         $productid = $this->filter($productid);
-        $q = $this->conn->prepare("SELECT * FROM reviews WHERE productid =?");
-        $q->bind_param("s",$productid);
-        $q->execute();
-        $result = $q->get_result();
+        $q = $this->conn->query("SELECT * FROM reviews WHERE productid ='$productid'");
         $readData = [];
         if($q){
-            if($result->num_rows > 0){
+            if($q->num_rows > 0){
                    $readData["status"] = "success";
-                   $readData["data"] = $result;
+                   $readData["data"] = $q;
             }else{
                 $readData["status"] = "failed";
                 $readData["message"] = "no data found";
@@ -264,7 +243,6 @@ class productApi extends dbConnection{
              $readData["message"] = $this->conn->error;
         }
         return $readData;
-        $q->close();
     }
 
 }
