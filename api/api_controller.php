@@ -110,7 +110,6 @@ if(isset($_POST["vendor_email_login"])){
      }
 }
 if(isset($_POST["vendor_logout"])){
-     $vendor = $vendorApi->logout();
-     echo json_encode($vendor);
+      $vendorApi->logout();
 }
 ?>

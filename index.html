@@ -42,10 +42,46 @@
                 </div>
                 </span>
             </div>
-    </main>
-    <div class="">
+    </main><br>
+    <footer class="footer bg-info pb-5 pt-2">
+        <div class="col-md-8 m-auto">
+            <div class="">
+                <div class="d-flex mb-3">
+                    <div class="p-1 bg-white mr-2" style="border-radius:10%;">
+                        <i class="fa fa-envelope fa-2x"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-white">EMAIL SUPPORT</h5>
+                        <h6 class="text-muted">igwezehycient86@gmail.com</h6>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="p-1 bg-white mr-2" style="border-radius:10%;">
+                        <i class="fa fa-phone fa-2x"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-white">PHONE SUPPORT</h5>
+                        <h6 class="text-muted">07088639675</P>
+                    </div>
+                </div>
+            </div>
+            <center>
+                <h6 class="text-muted">GET LATEST DEALS</h6>
+            </center>
+            <form class="form-group d-flex mb-3" action="" method="POST">
+                <input type="email" id="email" name=" email" class="form-control">
+                <input type="submit" id="subscribe" name=" subscribe" value="subscribe" class="btn btn-primary btn-sm " style="float: right;">
+            </form>
+            <h6 class="text-white">CONNECT WITH US</h6>
+            <div class="links">
+                <i class="fa fa-instagram fa-2x"></i>
+                <i class="fa fa-twitter fa-2x"></i>
+                <i class="fa fa-facebook fa-2x"></i>
+                <i class="fa fa-github fa-2x"></i>
+            </div>
+        </div>
 
-    </div>
+    </footer>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js "></script>
@@ -68,7 +104,9 @@
                         output = ` <div class="col-md-2 mb-5 flash">
                     <div class="card">
                         <div class="card-body">
+                            <a href="views/single_view.html?productid=${val.productid}&category=${val.category}">
                             <img src="assets/products/${val.photo}">
+                            </a>
                         </div>
                     </div>
                 </div>`;
@@ -97,7 +135,7 @@
                                     <img src="assets/products/${val.photo}">
                                 </a>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer p-1">
                                 <p class="text-muted">${val.title}</p>
                                 <div class="d-flex">
                                     <span class="badge bg-info text-white mr-2"># ${val.price}</span>
@@ -131,7 +169,7 @@
                                     <img src="assets/products/${val.photo}">
                                 </a>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer p-1">
                                 <p class="text-muted">${val.title}</p>
                                 <div class="d-flex">
                                     <span class="badge bg-info text-white mr-2"># ${val.price}</span>

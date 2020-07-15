@@ -4,7 +4,7 @@
 class productApi extends dbConnection{
     
     public function fetchProductForFlashSales(){
-    $sql = "SELECT * FROM product LIMIT 3,12";
+    $sql = "SELECT * FROM product LIMIT 3,6";
     $q = $this->conn->query($sql);
     $readData = [];
     if($q){
@@ -60,7 +60,7 @@ class productApi extends dbConnection{
     }
     public function singleProduct($id){
         $id = $this->filter($id);
-        $q = $this->conn->query("SELECT * FROM product WHERE id= '$id' ");
+        $q = $this->conn->query("SELECT * FROM product WHERE productid= '$id' ");
 
         $readData = [];
         if($q){
@@ -77,10 +77,14 @@ class productApi extends dbConnection{
         }
         return $readData;
     }
+    public function generatecharacters(){
+        $randomCharacters = "gywjsibd234raeiozfd5789052kjnEJHEGSBaHDDHJ4566Kiajnhoi75aqaDZJAJKdf46hsujbkjiuKJ568AKBJBIAN74883uddbhszmzJKFZKJKAZM";
+        $genCharacter = substr(str_shuffle($randomCharacters),0,7);
+        return $genCharacter;
+    }
     public function insertProduct($title,$longdesc,$price,$img,$quantity,$discount,$category,$video){
         $maximumUploadSize = 1000000;
-        $randomCharacters = "gywjsibd234raeiozfd5789052kjnEJHEGSBaHDDHJ4566Kiajnhoi75aqaDZJAJKdf46hsujbkjiuKJ568AKBJBIAN74883uddbhszmzJKFZKJKAZM";
-        $genFileName = substr(str_shuffle($randomCharacters),0,7);
+        $genFileName = $this->generatecharacters();
         $productId = uniqid() ;
         $title = $this->filter($title);
         $longDesc = $this->filter($longdesc);
@@ -145,8 +149,7 @@ class productApi extends dbConnection{
     }
     public function editProduct($title,$longdesc,$price,$img,$quantity,$discount,$category,$video,$productId){
         $maximumUploadSize = 1000000;
-        $randomCharacters = "gywjsibd234raeiozfd5789052kjnEJHEGSBaHDDHJ4566Kiajnhoi75aqaDZJAJKdf46hsujbkjiuKJ568AKBJBIAN74883uddbhszmzJKFZKJKAZM";
-        $genFileName = substr(str_shuffle($randomCharacters),0,7);
+        $genFileName = $this->generatecharacters();
         $productId = $productId;
         $title = $this->filter($title);
         $longDesc = $this->filter($longdesc);
@@ -246,5 +249,3 @@ class productApi extends dbConnection{
     }
 
 }
-
-
