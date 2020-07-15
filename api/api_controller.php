@@ -11,7 +11,77 @@ $productApi = new productApi;
 $usersApi = new usersApi;
 $vendorApi = new vendorsApi;
 
+if(isset($_POST["fetchProductForFlashSales"])){
+    $prod =$productApi->fetchProductForFlashSales();
+     $data = [];
+if($prod["status"] === "success"){
+ while ($row = $prod["data"]->fetch_object()){
+      $data[$row->id] = array(
+           "id" => $row->id,
+           "productid" => $row->productid,
+           "title" => $row->p_title,
+           " description" => $row->longdesc,
+           "qty" => $row->quantity,
+           "photo" => $row->photo,
+           "vid" => $row->preview,
+           "price"  => $row->price,
+           "discount" => $row->discount,
+           "category" => $row->cat
+      );
+ }
+ echo json_encode($data);
+}else{
+     echo json_encode($prod);
+}
+}
 
+if(isset($_POST["latestdeal"])){
+     $prod =$productApi->fetchLatestProducts();
+      $data = [];
+ if($prod["status"] === "success"){
+  while ($row = $prod["data"]->fetch_object()){
+       $data[$row->id] = array(
+            "id" => $row->id,
+            "productid" => $row->productid,
+            "title" => $row->p_title,
+            " description" => $row->longdesc,
+            "qty" => $row->quantity,
+            "photo" => $row->photo,
+            "vid" => $row->preview,
+            "price"  => $row->price,
+            "discount" => $row->discount,
+            "category" => $row->cat
+       );
+  }
+  echo json_encode($data);
+ }else{
+      echo json_encode($prod);
+ }
+ }
+
+if(isset($_POST["handpicked"])){
+     $prod =$productApi->fetchRecommendedProducts();
+      $data = [];
+ if($prod["status"] === "success"){
+  while ($row = $prod["data"]->fetch_object()){
+       $data[$row->id] = array(
+            "id" => $row->id,
+            "productid" => $row->productid,
+            "title" => $row->p_title,
+            " description" => $row->longdesc,
+            "qty" => $row->quantity,
+            "photo" => $row->photo,
+            "vid" => $row->preview,
+            "price"  => $row->price,
+            "discount" => $row->discount,
+            "category" => $row->cat
+       );
+  }
+  echo json_encode($data);
+ }else{
+      echo json_encode($prod);
+ }
+ }
 
 if(isset($_POST["submitpost"])){
     $product = $productApi->insertProduct($_POST["title"],$_POST["longdesc"],$_POST["price"],$_FILES["photo"],$_POST["quantity"]

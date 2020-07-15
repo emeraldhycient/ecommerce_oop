@@ -5,11 +5,11 @@ class productApi extends dbConnection{
     
     public function fetchProductForFlashSales(){
     $sql = "SELECT * FROM product LIMIT 3,12";
-    $q = $this->conn->prepare($sql);
+    $q = $this->conn->query($sql);
     $readData = [];
     if($q){
         if($q->num_rows > 0){
-               $readData["status"] = "successful";
+               $readData["status"] = "success";
                $readData["data"] = $q;
         }else{
             $readData["status"] = "failed";
@@ -41,22 +41,22 @@ class productApi extends dbConnection{
     }
            
     public function fetchLatestProducts(){
-        $sql = "SELECT * FROM product LIMIT 4,9";
-        $q = $this->conn->query($sql);;
-        $readData = [];
-        if($q){
-            if($q->num_rows > 0){
-                   $readData["status"] = "successful";
-                   $readData["data"] = $q;
-            }else{
-                $readData["status"] = "failed";
-                $readData["message"] = "no data found";
-            }
+        $sql = "SELECT * FROM product LIMIT 7,15";
+    $q = $this->conn->query($sql);
+    $readData = [];
+    if($q){
+        if($q->num_rows > 0){
+               $readData["status"] = "success";
+               $readData["data"] = $q;
         }else{
-             $readData["status"] = "failed";
-             $readData["message"] = $this->conn->error;
+            $readData["status"] = "failed";
+           $readData["message"] = "no data found";
         }
-        return $readData;
+    }else{
+         $readData["status"] = "failed";
+         $readData["message"] = $this->conn->error;
+    }
+    return $readData;
     }
     public function singleProduct($id){
         $id = $this->filter($id);
@@ -86,11 +86,11 @@ class productApi extends dbConnection{
         $longDesc = $this->filter($longdesc);
         $price = $this->filter($price);
         $imgExt = pathinfo($img["name"],PATHINFO_EXTENSION);
-        $imgPath ="../assets/products/".$genFileName.".".$imgExt;
+        $imgPath ="../assets/products/Img".$genFileName.".".$imgExt;
         $imgName = "Img".$genFileName.".".$imgExt;
         $imgSize = $img["size"];
         $vidExt = pathinfo($video["name"],PATHINFO_EXTENSION);
-        $vidPath = "../assets/products/".$genFileName.".".$vidExt;
+        $vidPath = "../assets/products/Vid".$genFileName.".".$vidExt;
         $vidSize = $video["size"];
         $vidName = "Vid".$genFileName.".".$vidExt;
         $quantity = $this->filter($quantity);

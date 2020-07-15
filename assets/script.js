@@ -1,4 +1,5 @@
 $(document).ready(() => {
+
     $("#registerform").submit((e) => {
         e.preventDefault();
         vendor_username = $("#vendor_username").val();
@@ -76,6 +77,7 @@ $(document).ready(() => {
 
     });
 
+
     $("#logout").click(() => {
         $.ajax({
             url: '../api/api_controller.php',
@@ -88,6 +90,6 @@ $(document).ready(() => {
                 location.href = "./login.html"
             }
         })
-    })
+    });
 
 })

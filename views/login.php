@@ -34,9 +34,6 @@
                 <div class="error bg-danger text-white">
                     <p id="error"></p>
                 </div>
-                <div class="success bg-success text-white">
-                    <p id="success"></p>
-                </div>
             </div>
         </div>
     </div>
