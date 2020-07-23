@@ -228,8 +228,19 @@
             },
             dataType: "JSON",
             success: data => {
-                $.each(data, (i, val) => {
-                    output = ` 
+                if (data.status == "failed") {
+
+                    outpu = ` <div class="card mb-4">
+                            <div class="card-header d-flex">
+                                          <h6>be the first to submit  a review</h6>
+                            </div>
+                        </div>
+                    `;
+                    $(".reviews").append(outpu);
+                    console.log(data);
+                } else {
+                    $.each(data, (i, val) => {
+                        output = ` 
                         <div class="card mb-4">
                             <div class="card-header d-flex">
                                 <div class="img-thumbnail ml-3 mr-2 p-2">
@@ -242,8 +253,9 @@
                             </div>
                         </div>
                     `;
-                    $(".reviews").append(output);
-                });
+                        $(".reviews").append(output);
+                    });
+                }
             }
         })
 
