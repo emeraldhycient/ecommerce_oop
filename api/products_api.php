@@ -65,7 +65,26 @@ class productApi extends dbConnection{
         $readData = [];
         if($q){
             if($q->num_rows > 0){
-                   $readData["status"] = "successful";
+                   $readData["status"] = "success";
+                   $readData["data"] = $q;
+            }else{
+                $readData["status"] = "failed";
+               $readData["message"] = "no data found";
+            }
+        }else{
+             $readData["status"] = "failed";
+             $readData["message"] = $this->conn->error;
+        }
+        return $readData;
+    }
+    public function selectProductCategory($category){
+        $category = $this->filter($category);
+        $q = $this->conn->query("SELECT * FROM product WHERE cat= '$category' LIMIT 6");
+
+        $readData = [];
+        if($q){
+            if($q->num_rows > 0){
+                   $readData["status"] = "success";
                    $readData["data"] = $q;
             }else{
                 $readData["status"] = "failed";
@@ -220,13 +239,14 @@ class productApi extends dbConnection{
         $message = [];
         $sql = "INSERT INTO reviews(productid,review,reviewer) VALUES ('$productid','$review','$reviewer')";
         $q = $this->conn->query($sql);
-         if($q->num_rows > 0){
+         if($q){
             $message["status"] = "success";
             $message["message"] = "review submitted successfully"; 
          }else{
             $message["status"] = "failed";
             $message["message"] = $this->conn->error; 
          }
+         return $message;
         
     }
     public function fetchReview($productid){
