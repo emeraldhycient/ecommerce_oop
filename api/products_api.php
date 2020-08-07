@@ -96,11 +96,7 @@ class productApi extends dbConnection{
         }
         return $readData;
     }
-    public function generatecharacters(){
-        $randomCharacters = "gywjsibd234raeiozfd5789052kjnEJHEGSBaHDDHJ4566Kiajnhoi75aqaDZJAJKdf46hsujbkjiuKJ568AKBJBIAN74883uddbhszmzJKFZKJKAZM";
-        $genCharacter = substr(str_shuffle($randomCharacters),0,7);
-        return $genCharacter;
-    }
+    
     public function insertProduct($title,$longdesc,$price,$img,$quantity,$discount,$category,$video){
         $maximumUploadSize = 1000000;
         $genFileName = $this->generatecharacters();

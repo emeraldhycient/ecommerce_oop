@@ -22,5 +22,10 @@ session_start();
         $hackvar = htmlspecialchars($hackvar);
                return $this->conn->real_escape_string($hackvar); 
     }
+    public function generatecharacters(){
+        $randomCharacters = "gywjsibd234raeiozfd5789052kjnEJHEGSBaHDDHJ4566Kiajnhoi75aqaDZJAJKdf46hsujbkjiuKJ568AKBJBIAN74883uddbhszmzJKFZKJKAZM";
+        $genCharacter = substr(str_shuffle($randomCharacters),0,7);
+        return $genCharacter;
+    }
 
  }

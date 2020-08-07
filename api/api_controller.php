@@ -11,6 +11,51 @@ $productApi = new productApi;
 $usersApi = new usersApi;
 $vendorApi = new vendorsApi;
 
+//echo json_encode($vendorApi->fetchAllOrders());
+
+//fetchallmessages for user 
+if(isset($_POST["FetchAllMessagesForUser"])){
+echo json_encode($usersApi->fetchAllMessages());
+}
+
+//FetchAllMessages for vendor
+if(isset($_POST["FetchAllMessages"])){
+echo json_encode($vendorApi->fetchAllMessages());
+}
+
+//user sends message
+if(isset($_POST["vendorMess"])){
+     $mssg = $vendorApi->sendMessage($_POST["message"],$_POST["receiverid"],$_FILES["capture"]);
+     echo json_encode($mssg);
+}
+
+//fetch mesages for vendor
+if(isset($_POST["FetchmessagesVendor"])){
+     echo json_encode($vendorApi->fetchMessages($_POST["user_id"]));
+}
+
+//fetch users details
+if(isset($_POST["userDetails"])){
+     echo json_encode($vendorApi->usersDetails($_POST["user_id"]));
+}
+
+//fetch messages for user 
+if(isset($_POST["Fetchmessages"])){
+     echo json_encode($usersApi->fetchMessages($_POST["shop_id"]));
+}
+
+// fetch vendor details for user 
+if(isset($_POST["vendorDetails"])){
+echo json_encode($usersApi->vendorsDetails("5f0dc50e12ced"));
+}
+
+//user sends message
+if(isset($_POST["message"])){
+     $mssg = $usersApi->sendMessage($_POST["message"],$_POST["receiverid"],$_FILES["capture"]);
+     echo json_encode($mssg);
+}
+
+//fetch product review
 if(isset($_POST["fetchreview"])){
      $prod = $productApi->fetchReview($_POST["productid"]);
      $data = [];
@@ -29,12 +74,14 @@ if(isset($_POST["fetchreview"])){
      }
 }
 
-
+//submit product review
 if(isset($_POST["submitreview"])){
      $prod = $productApi->submitProductReview($_POST["productid"],$_POST["review"],$_POST["reviewer"]);
      echo json_encode($prod);
 }
 
+
+// fetch product for flash sales category
 if(isset($_POST["fetchProductForFlashSales"])){
     $prod =$productApi->fetchProductForFlashSales();
      $data = [];
@@ -59,6 +106,8 @@ if($prod["status"] === "success"){
 }
 }
 
+
+// view single product
 if(isset($_POST["single_view"])){
      $prod =$productApi->singleProduct($_POST["productid"]);
       $data = [];
@@ -67,6 +116,7 @@ if(isset($_POST["single_view"])){
        $data[$row->id] = array(
             "id" => $row->id,
             "productid" => $row->productid,
+            "shop_id" => $row->shop_id,
             "title" => $row->p_title,
             "description" => $row->longdesc,
             "qty" => $row->quantity,
@@ -83,6 +133,8 @@ if(isset($_POST["single_view"])){
  }
  }
 
+
+ // select other related product
  if(isset($_POST["selectCategory"])){
      $prod =$productApi->selectProductCategory($_POST["category"]);
       $data = [];
@@ -107,6 +159,7 @@ if(isset($_POST["single_view"])){
  }
  }
 
+ //fetch product for latest deal section
 if(isset($_POST["latestdeal"])){
      $prod =$productApi->fetchLatestProducts();
       $data = [];
@@ -131,6 +184,8 @@ if(isset($_POST["latestdeal"])){
  }
  }
 
+
+  //fetch product for  handpicked section
 if(isset($_POST["handpicked"])){
      $prod =$productApi->fetchRecommendedProducts();
       $data = [];
@@ -155,6 +210,8 @@ if(isset($_POST["handpicked"])){
  }
  }
 
+
+ //submit post by vendors
 if(isset($_POST["submitpost"])){
     $product = $productApi->insertProduct($_POST["title"],$_POST["longdesc"],$_POST["price"],$_FILES["photo"],$_POST["quantity"]
      ,$_POST["discount"],$_POST["category"],$_FILES["video"]);
@@ -164,6 +221,8 @@ if(isset($_POST["submitpost"])){
                   echo $product["message"];
      }
 }
+
+// vendor create account
 if(isset($_POST["vendor_username"])){
      $vendor = $vendorApi->createAccount($_POST["vendor_username"],$_POST["vendor_address"]
      ,$_POST["vendor_phone"],$_POST["vendor_email"],$_POST["vendor_pass"],$_POST["vendor_cpass"]);
@@ -173,6 +232,8 @@ if(isset($_POST["vendor_username"])){
           echo json_encode($vendor);
      }
 }
+
+// login for vendors
 if(isset($_POST["vendor_email_login"])){
      $vendor = $vendorApi->login($_POST["vendor_email_login"],$_POST["vendor_pass_login"]);
      if($vendor["status"] === "success"){
@@ -181,6 +242,8 @@ if(isset($_POST["vendor_email_login"])){
           echo json_encode($vendor);
      }
 }
+
+// logout for vendors
 if(isset($_POST["vendor_logout"])){
       $vendorApi->logout();
 }

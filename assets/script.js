@@ -92,4 +92,19 @@ $(document).ready(() => {
         })
     });
 
+    $("#logout2").click(() => {
+        $.ajax({
+            url: '../api/api_controller.php',
+            type: 'POST',
+            data: {
+                "vendor_logout": "vendor_logout"
+            },
+            dataType: "JSON",
+            success: data => {
+                location.href = "./login.html"
+            }
+        })
+    });
+
+
 })

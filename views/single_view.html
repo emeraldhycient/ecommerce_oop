@@ -126,7 +126,7 @@
                 } else {
                     $.each(data, (i, val) => {
                         output = `
-                             <div class="col-md-6">
+                             <div class="col-md-6" style="margin-bottom:260px">
                                  <div class="card" id="videotag">
                                      <div class="card-body">
                                          <video src="../assets/products/${val.vid}" muted autoplay class="img-thumbnail" style="height:230px;width:100%;margin-top:-10px;"></video>
@@ -139,7 +139,9 @@
                                              <input type="number" name="quantity" id="quantity" placeholder=" qty" class="form-control m-2">
                                              <input class="btn btn-sm btn-success" type="submit" value="Buy Now">
                                          </form>
-                                         <a href="" class="btn btn-sm offset-6" style="margin-top:-10px;">Add To Cart</a>
+                                         <div class="btn-group">
+                                         <a href="./chats/user_messages.php?shop_id=${val.shop_id}" class="btn btn-sm btn-info">Message Seller</a>
+                                         </div>
                                      </div>
                                  </div>
                              </div>
