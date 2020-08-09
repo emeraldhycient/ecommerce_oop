@@ -187,7 +187,7 @@
                     <div class="row">
                         <div class="col-md-2 card m-2 bg-danger text-white">
                             <div class="d-flex">
-                                <i class="fa fa-cloud-upload mt-3 pr-2" style="font-size:2em;"></i>
+                                <i class="fa fa-cloud-upload fa-2x mt-3 pr-2"></i>
                                 <div>
                                     <center>
                                         <h6 class="mt-2">Total Products</h5>
@@ -198,7 +198,7 @@
                         </div>
                         <div class="col-md-2 card m-2 bg-warning text-white">
                             <div class="d-flex">
-                                <i class="fa fa-camera mt-3 pr-2" style="font-size:2em;"></i>
+                                <i class="fa fa-camera fa-2x mt-3 pr-2"></i>
                                 <div>
                                     <center>
                                         <h6 class="mt-2">Total Videos</h5>
@@ -209,7 +209,7 @@
                         </div>
                         <div class="col-md-2 card m-2 bg-info text-warning">
                             <div class="d-flex">
-                                <i class="fa fa-image mt-3 pr-2" style="font-size:2em;"></i>
+                                <i class="fa fa-image fa-2x mt-3 pr-2"></i>
                                 <div>
                                     <center>
                                         <h6 class="mt-2">Total Images</h5>
@@ -325,43 +325,78 @@ const action = urlParams.get('action');
 
 switch (action) {
     case "fetchProducts":
-        fetchProducts()
+        customFetch("fetchProducts", outputProducts)
         break;
     case "fetchImages":
-        fetchImages()
+        customFetch("fetchImages", outputImages)
         break;
     case "fetchVideos":
-        fetchVideos()
+        customFetch("fetchVideos", outputVideos)
         break;
     case "fetchOrders":
-        fetchOrders()
+        customFetch("fetchOrders", outputOrders)
         break;
     case "fetchAccount":
-        fetchAccount()
+        customFetch("fetchAccount", outputAccount)
         break;
     default:
-
-}
-function fetchProducts(){
-
+        customFetch("fetchProducts", outputProducts)
 }
 
-function fetchImages(){
-    
+function customFetch(data, outputFunction) {
+    $.ajax({
+        url: "../api/api_controller.php",
+        type: "post",
+        data: {
+            "dashboardAction": data
+        },
+        dataType: "JSON",
+        success: (data) => {
+            outputFunction(data);
+        }
+
+    })
 }
 
-function fetchVideos(){
-    
+function outputProducts(data) {
+    if (data.status == "success") {
+        console.log(data)
+    } else {
+        console.log(data)
+    }
 }
 
-function fetchOrders(){
-    
+function outputImages(data) {
+    if (data.status == "success") {
+        console.log(data)
+    } else {
+        console.log(data)
+    }
 }
 
-function fetchAccount(){
-    
+function outputVideos(data) {
+    if (data.status == "success") {
+        console.log(data)
+    } else {
+        console.log(data)
+    }
 }
 
+function outputOrders(data) {
+    if (data.status == "success") {
+        console.log(data)
+    } else {
+        console.log(data)
+    }
+}
+
+function outputAccount(data) {
+    if (data.status == "success") {
+        console.log(data)
+    } else {
+        console.log(data)
+    }
+}
 </script>
 
 </html>

@@ -11,7 +11,28 @@ $productApi = new productApi;
 $usersApi = new usersApi;
 $vendorApi = new vendorsApi;
 
-//echo json_encode($vendorApi->fetchAllOrders());
+if(isset($_POST["dashboardAction"])){
+     $action = $_POST["dashboardAction"];
+     switch ($action) {
+          case "fetchProducts":
+              echo json_encode($vendorApi->fetchAllProducts());
+              break;
+          case "fetchImages":
+               echo json_encode($vendorApi->fetchAllImages());
+          break;
+          case "fetchVideos":
+               echo json_encode($vendorApi->fetchAllVideos());
+          break;
+          case "fetchOrders":
+               echo json_encode($vendorApi->fetchAllOrders());
+          break;
+          case "fetchAccount":
+               echo json_encode($vendorApi->fetchTotalFund());
+          break;
+          default:
+          echo json_encode($vendorApi->fetchAllProducts());
+      }
+}
 
 //fetchallmessages for user 
 if(isset($_POST["FetchAllMessagesForUser"])){

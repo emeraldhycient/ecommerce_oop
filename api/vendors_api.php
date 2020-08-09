@@ -67,7 +67,7 @@ class vendorsApi extends dbConnection{
                     if($query){
                         if($query->num_rows > 0){
                            $message["status"] = "success";
-                           $message["totalVideo"] = $query->num_rows;
+                           $message["data"] = $query->num_rows;
                     }
                     else{
                         $message["status"] = "failed";
@@ -89,7 +89,7 @@ class vendorsApi extends dbConnection{
             if($query->num_rows > 0){
                $message["status"] = "success";
                while($row = $query->fetch_object()){
-               $message["Allvideo"][$row->id] = array(
+               $message["data"][$row->id] = array(
                    "id" => $row->id,
                    "productid" => $row->productid,
                    "title" => $row->p_title,
@@ -115,7 +115,7 @@ class vendorsApi extends dbConnection{
         if($query){
             if($query->num_rows > 0){
                $message["status"] = "success";
-               $message["totalVideo"] = $query->num_rows;
+               $message["data"] = $query->num_rows;
         }
         else{
             $message["status"] = "failed";
@@ -136,7 +136,7 @@ class vendorsApi extends dbConnection{
             if($query->num_rows > 0){
                $message["status"] = "success";
                while($row = $query->fetch_object()){
-               $message["Allvideo"][$row->id] = array(
+               $message["data"][$row->id] = array(
                    "id" => $row->id,
                    "productid" => $row->productid,
                    "title" => $row->p_title,
@@ -161,7 +161,7 @@ class vendorsApi extends dbConnection{
         if($query){
             if($query->num_rows > 0){
                $message["status"] = "success";
-               $message["totalVideo"] = $query->num_rows;
+               $message["data"] = $query->num_rows;
         }
         }else{
             $message["status"] = "failed";
@@ -178,7 +178,7 @@ class vendorsApi extends dbConnection{
             if($query->num_rows > 0){
                $message["status"] = "success";
             while($row = $query->fetch_object()){
-                        $message["allProduct"][$row->id] = array(
+                        $message["data"][$row->id] = array(
                             "id" => $row->id,
                             "productid" => $row->productid,
                             "shop_id" => $row->shop_id,
@@ -210,7 +210,7 @@ class vendorsApi extends dbConnection{
         if($query){
             if($query->num_rows > 0){
                $message["status"] = "success";
-               $message["totalvideo"] = $query->num_rows;
+               $message["data"] = $query->num_rows;
         }else{
             $message["status"] = "failed";
             $message["message"] = "no order found";
@@ -230,7 +230,7 @@ class vendorsApi extends dbConnection{
             if($query->num_rows > 0){
                $message["status"] = "success";
                while($row = $query->fetch_object()){
-               $message["allOrder"][$row->id] = array(
+               $message["data"][$row->id] = array(
                    "id" => $row->id,
                    "productid" => $row->productid,
                    "productname" => $row->productname,
@@ -262,7 +262,7 @@ class vendorsApi extends dbConnection{
             if($query->num_rows > 0){
                $message["status"] = "success";
                $result = $query->fetch_object();
-               $message["allfund"] = $result->amount;
+               $message["data"] = $result->amount;
         }
         }else{
             $message["status"] = "failed";

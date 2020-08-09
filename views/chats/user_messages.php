@@ -310,22 +310,23 @@ $(document).ready(() => {
 
     $(".receiverid").val(shop_id)
 
-    setTimeout(fetchmessage,1000)
+    setTimeout(fetchmessage, 1000)
 
-    function fetchmessage(){
+    function fetchmessage() {
         $.ajax({
-        url: './../../api/api_controller.php',
-        type: 'POST',
-        data: {
-            "Fetchmessages": "Fetchmessages",
-            "shop_id": shop_id
-        },
-        dataType: "JSON",
-        success: data => {
-            outputmessages(data)
-        }
-    })
+            url: './../../api/api_controller.php',
+            type: 'POST',
+            data: {
+                "Fetchmessages": "Fetchmessages",
+                "shop_id": shop_id
+            },
+            dataType: "JSON",
+            success: data => {
+                outputmessages(data)
+            }
+        })
     }
+
     function outputmessages(data) {
         output = ""
         $.each(data.data, (i, val) => {
@@ -381,7 +382,7 @@ $(document).ready(() => {
     }
 
     function generateMediaTag(filepath, ext, float, margin) {
-        imgarray =  ['gif', 'png', 'jpeg', 'jpg']
+        imgarray = ['gif', 'png', 'jpeg', 'jpg']
         vidarray = ['mp4', 'mpg', 'mpeg', "m4v"]
         tag = ""
         if (imgarray.includes(ext)) {
@@ -445,7 +446,7 @@ $(document).ready(() => {
                 <h4 class='nametag'><i class="fa fa-user mr-2 text-primary bg-light p-2" style="border-radius:1000px;"></i>${val.shop_username}</h4>
                 </center>
               `
-              $(".chathead").append(output)
+            $(".chathead").append(output)
         })
 
     }
@@ -464,7 +465,7 @@ $(document).ready(() => {
                                 </div>
                          </div>
                 `
-                $(".sidepane").append(output)
+            $(".sidepane").append(output)
         })
     }
 
