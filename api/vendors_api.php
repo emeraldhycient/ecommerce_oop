@@ -261,9 +261,13 @@ class vendorsApi extends dbConnection{
         if($query){
             if($query->num_rows > 0){
                $message["status"] = "success";
-               $result = $query->fetch_object();
+               while($result = $query->fetch_object()){
                $message["data"] = $result->amount;
-        }
+               }
+            }else{
+                $message["status"] = "failed";
+                $message["message"] = "Wallet is empty";
+            }
         }else{
             $message["status"] = "failed";
             $message["message"] = $this->conn->error;

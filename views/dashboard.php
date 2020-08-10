@@ -20,6 +20,17 @@
         href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/styles.css">
+    <style>
+         #contentholder {
+        height: 800px;
+        overflow: auto;
+        overflow-y: scroll;
+        margin: 10px;
+    }
+    #box{
+        margin-bottom:100px;
+    }
+    </style>
 </head>
 
 <body>
@@ -263,7 +274,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="contentbox">
+                        <div class="row" id="contentholder">
 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -360,41 +375,72 @@ function customFetch(data, outputFunction) {
 
 function outputProducts(data) {
     if (data.status == "success") {
-        console.log(data)
+        $.each(data.data, (i, val) => {
+            let output = `
+           <div class="col-md-5" id="box">
+                <div class="card">
+                    <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                        <video src="../assets/products/${val.vid}" muted autoplay class="img-thumbnail"></video>
+                        </div>
+                        <div class="col-md-6">
+                        <img src="../assets/products/${val.photo}" class="img-thumbnail">
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                         <h6 class="card-title">${val.title}</h6>
+                         <h6>QTY Available : ${val.qty} <span class="badge bg-info text-white">Category : ${val.category}</h6>
+                                        ${val.description}
+                    </div>
+                </div>
+           </div>
+           `
+            $("#contentholder").append(output)
+        })
     } else {
-        console.log(data)
+        console.log(data.message)
     }
 }
 
 function outputImages(data) {
     if (data.status == "success") {
-        console.log(data)
+        $.each(data, (i, val) => {
+            console.log(val.data);
+        })
     } else {
-        console.log(data)
+        console.log(data.message)
     }
 }
 
 function outputVideos(data) {
     if (data.status == "success") {
-        console.log(data)
+        $.each(data.data, (i, val) => {
+            console.log(val.vid);
+        })
     } else {
-        console.log(data)
+        console.log(data.message)
     }
 }
 
 function outputOrders(data) {
     if (data.status == "success") {
-        console.log(data)
+        $.each(data.data, (i, val) => {
+            console.log(val.vid);
+        })
     } else {
-        console.log(data)
+        console.log(data.message)
     }
 }
 
 function outputAccount(data) {
     if (data.status == "success") {
-        console.log(data)
+        $.each(data, (i, val) => {
+            console.log(val.data);
+        })
     } else {
-        console.log(data)
+        console.log(data.message)
     }
 }
 </script>
