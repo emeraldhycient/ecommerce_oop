@@ -11,6 +11,10 @@ $productApi = new productApi;
 $usersApi = new usersApi;
 $vendorApi = new vendorsApi;
 
+if(isset($_POST["searchQuery"])){
+echo json_encode($productApi->searchProducts("category"));
+}
+
 if(isset($_POST["dashboardAction"])){
      $action = $_POST["dashboardAction"];
      switch ($action) {

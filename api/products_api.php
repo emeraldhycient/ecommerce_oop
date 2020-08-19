@@ -264,4 +264,39 @@ class productApi extends dbConnection{
         return $readData;
     }
 
+    public function searchProducts($string){
+        $string = $this->filter($string);
+        $sql = "SELECT * FROM product WHERE productid LIKE'%$string%' OR p_title LIKE'%$string%' 
+        OR longdesc LIKE'%$string%' OR cat LIKE'%$string%' OR price LIKE'%$string%' OR discount LIKE'%$string%'";
+        $query = $this->conn->query($sql);
+        $data = [];
+        if($query){
+            if($query->num_rows > 0){
+                while($row = $query->fetch_object()){
+                    $data["status"] = "success";
+                    $data["data"][$row->id] = array(
+                        "id" => $row->id,
+                        "productid" => $row->productid,
+                        "shop_id" => $row->shop_id,
+                        "title" => $row->p_title,
+                        "description" => $row->longdesc,
+                        "qty" => $row->quantity,
+                        "photo" => $row->photo,
+                        "vid" => $row->preview,
+                        "price"  => $row->price,
+                        "discount" => $row->discount,
+                        "category" => $row->cat
+                    );
+                }
+            }else{
+                $data["status"] = "failed";
+                $data["message"] = "No Data Found";
+            }
+        }else{
+               $data["status"] = "failed";
+               $data["message"] = $this->conn->error;
+        }
+        return $data;
+    }
+
 }

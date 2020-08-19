@@ -21,14 +21,26 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/styles.css">
     <style>
-         #contentholder {
-        height: 800px;
-        overflow: auto;
+    #contentholder {
+        height: 1000px;
         overflow-y: scroll;
         margin: 10px;
     }
-    #box{
-        margin-bottom:100px;
+
+    #box {
+        margin-bottom: 20px;
+    }
+
+    @media(min-width:780px) {
+        #contentholder {
+            margin-left: 105px;
+        }
+    }
+
+    @media(min-width:780px) {
+        #contentholder {
+            margin-left: 105px;
+        }
     }
     </style>
 </head>
@@ -38,12 +50,9 @@
         <nav class="container">
             <div class="row">
                 <div class="col-md-8 m-auto">
-                    <h3 class="mt-2"><span class="text-info">Wona</span>-Shop</h3>
-                    <form class="form-inline offset-6">
-                        <input type="text" name="searchbar" class="form-control col" id="searchbar">
-                        <button class="btn btn-info btn-sm" id="searchbtn"><i class="fa fa-search"></i></button>
-                    </form>
-                    <button class="navbar-toggler first-button" type="button" data-toggle="collapse"
+                    <h3 class="mt-2"><span class="text-info">Wona</span>-Shop</h3><br>
+                    <input type="text" name="searchbar" class="form-control" id="searchbar">
+                    <button class="navbar-toggler first-button mt-1" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent20" aria-controls="navbarSupportedContent20"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <div class="animated-icon1"><span></span><span></span><span></span></div>
@@ -274,10 +283,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="contentbox">
-                        <div class="row" id="contentholder">
+                </div>
+                <div class="contentbox">
+                    <center>
+                        <h4 class="m-5" id="navTitle"></h4>
+                    </center>
+                    <div class="row" id="contentholder">
 
-                        </div>
                     </div>
                 </div>
             </div>
@@ -379,8 +391,8 @@ function outputProducts(data) {
             let output = `
            <div class="col-md-5" id="box">
                 <div class="card">
-                    <div class="card-body">
-                    <div class="row">
+                <div class="card-body">
+                    <div class="row" id="mediabox">
                         <div class="col-md-6">
                         <video src="../assets/products/${val.vid}" muted autoplay class="img-thumbnail"></video>
                         </div>
@@ -392,13 +404,19 @@ function outputProducts(data) {
                     <div class="card-footer">
                          <h6 class="card-title">${val.title}</h6>
                          <h6>QTY Available : ${val.qty} <span class="badge bg-info text-white">Category : ${val.category}</h6>
-                                        ${val.description}
+                        <div>${val.description}</div> 
+                        <hr>
+                        <div class="btn-group">
+                         <button class="btn btn-danger btn-sm"><i class="fa fa-"></i>Delete</button>
+                         <button class="btn btn-info btn-sm"><i class="fa fa-"></i>Edit</button>
+                         </div>
                     </div>
                 </div>
            </div>
            `
             $("#contentholder").append(output)
         })
+        $("#navTitle").text("Products")
     } else {
         console.log(data.message)
     }
@@ -406,9 +424,26 @@ function outputProducts(data) {
 
 function outputImages(data) {
     if (data.status == "success") {
-        $.each(data, (i, val) => {
-            console.log(val.data);
+        $.each(data.data, (i, val) => {
+            let output = `
+           <div class="col-md-5" id="box">
+                <div class="card">
+                <div class="card-body">
+                        <img src="../assets/products/${val.photo}" class="img-thumbnail">
+                    </div>
+                    <div class="card-footer">
+                         <h6 class="card-title">${val.title}</h6>
+                         <h6>QTY Available : ${val.qty} <span class="badge bg-info text-white">Category : ${val.category}</h6>
+                         <hr><div class="btn-group">
+                         <button class="btn btn-info btn-sm"><i class="fa fa-"></i>edit</button>
+                         </div>
+                    </div>
+                </div>
+           </div>
+           `
+            $("#contentholder").append(output)
         })
+        $("#navTitle").text("Images")
     } else {
         console.log(data.message)
     }
@@ -417,8 +452,25 @@ function outputImages(data) {
 function outputVideos(data) {
     if (data.status == "success") {
         $.each(data.data, (i, val) => {
-            console.log(val.vid);
+            let output = `
+           <div class="col-md-5" id="box">
+                <div class="card">
+                <div class="card-body">
+                        <video src="../assets/products/${val.preview}" muted autoplay class="img-thumbnail"></video>
+                    </div>
+                    <div class="card-footer">
+                         <h6 class="card-title">${val.title}</h6>
+                         <h6>QTY Available : ${val.qty} <span class="badge bg-info text-white">Category : ${val.category}</h6>
+                         <hr><div class="btn-group">
+                         <button class="btn btn-info btn-sm"><i class="fa fa-"></i>Edit</button>
+                         </div>
+                    </div>
+                </div>
+           </div>
+           `
+            $("#contentholder").append(output)
         })
+        $("#navTitle").text("Videos")
     } else {
         console.log(data.message)
     }

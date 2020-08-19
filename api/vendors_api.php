@@ -83,7 +83,7 @@ class vendorsApi extends dbConnection{
     public function fetchAllVideos(){
         $shop_id = $_SESSION["shop_id"];
         $message = [];
-        $sql = "SELECT id,p_title,productid,preview FROM product WHERE shop_id ='$shop_id' ";
+        $sql = "SELECT id,p_title,productid,preview,quantity,cat FROM product WHERE shop_id ='$shop_id' ";
         $query = $this->conn->query($sql);
         if($query){
             if($query->num_rows > 0){
@@ -93,7 +93,9 @@ class vendorsApi extends dbConnection{
                    "id" => $row->id,
                    "productid" => $row->productid,
                    "title" => $row->p_title,
-                   "preview" => $row->preview
+                   "preview" => $row->preview,
+                   "qty" => $row->quantity,
+                   "category" => $row->cat
                ) ;
                }
         }else{
@@ -130,7 +132,7 @@ class vendorsApi extends dbConnection{
     public function fetchAllImages(){
         $shop_id = $_SESSION["shop_id"];
         $message = [];
-        $sql = "SELECT id,p_title,productid,photo FROM product WHERE shop_id ='$shop_id' ";
+        $sql = "SELECT id,p_title,productid,photo,quantity,cat FROM product WHERE shop_id ='$shop_id' ";
         $query = $this->conn->query($sql);
         if($query){
             if($query->num_rows > 0){
@@ -140,7 +142,9 @@ class vendorsApi extends dbConnection{
                    "id" => $row->id,
                    "productid" => $row->productid,
                    "title" => $row->p_title,
-                   "photo" => $row->photo
+                   "photo" => $row->photo,
+                   "qty" => $row->quantity,
+                    "category" => $row->cat
                ) ;
                }
         }else{

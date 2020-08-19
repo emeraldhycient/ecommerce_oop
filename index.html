@@ -15,11 +15,8 @@
         <nav class="container">
             <div class="row">
                 <div class="col-md-8 m-auto">
-                    <h3 class="mt-2"><span class="text-info">Wona</span>-Shop</h3>
-                    <form class="form-inline offset-5">
-                        <input type="text" name="searchbar" class="form-control w-75 pl-2" id="searchbar">
-                        <button class="btn btn-info btn-sm" id="searchbtn"><i class="fa fa-search"></i></button>
-                    </form>
+                    <h3 class="mt-2 mb-3"><span class="text-info">Wona</span>-Shop</h3><br>
+                    <input type="text" name="searchbar" class="form-control  pl-2" id="searchbar">
                 </div>
             </div>
         </nav>
@@ -190,7 +187,20 @@
                 }
             }
         })
-
+        $("#searchbar").keyup(() => {
+            searchQuery = $("#searchbar").val()
+            $.ajax({
+                url: './api/api_controller.php',
+                type: 'POST',
+                data: {
+                    "searchQuery": searchQuery,
+                },
+                dataType: "JSON",
+                success: (data) => {
+                    console.log(data);
+                }
+            })
+        })
     })
 </script>
 
