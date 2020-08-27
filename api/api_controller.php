@@ -12,7 +12,7 @@ $usersApi = new usersApi;
 $vendorApi = new vendorsApi;
 
 if(isset($_POST["searchQuery"])){
-echo json_encode($productApi->searchProducts("category"));
+echo json_encode($productApi->searchProducts($_POST["searchQuery"]));
 }
 
 if(isset($_POST["dashboardAction"])){

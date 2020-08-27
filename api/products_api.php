@@ -279,7 +279,7 @@ class productApi extends dbConnection{
                         "productid" => $row->productid,
                         "shop_id" => $row->shop_id,
                         "title" => $row->p_title,
-                        "description" => $row->longdesc,
+                        "description" => substr($row->longdesc,0,100),
                         "qty" => $row->quantity,
                         "photo" => $row->photo,
                         "vid" => $row->preview,

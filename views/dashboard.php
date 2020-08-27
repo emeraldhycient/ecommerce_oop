@@ -20,29 +20,6 @@
         href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/styles.css">
-    <style>
-    #contentholder {
-        height: 1000px;
-        overflow-y: scroll;
-        margin: 10px;
-    }
-
-    #box {
-        margin-bottom: 20px;
-    }
-
-    @media(min-width:780px) {
-        #contentholder {
-            margin-left: 105px;
-        }
-    }
-
-    @media(min-width:780px) {
-        #contentholder {
-            margin-left: 105px;
-        }
-    }
-    </style>
 </head>
 
 <body>
@@ -50,13 +27,18 @@
         <nav class="container">
             <div class="row">
                 <div class="col-md-8 m-auto">
-                    <h3 class="mt-2"><span class="text-info">Wona</span>-Shop</h3><br>
-                    <input type="text" name="searchbar" class="form-control" id="searchbar">
+                    <div class="d-flex mb-2">
                     <button class="navbar-toggler first-button mt-1" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent20" aria-controls="navbarSupportedContent20"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <div class="animated-icon1"><span></span><span></span><span></span></div>
                     </button>
+                    <h3 class="mt-2"><span class="text-info">Wona</span>-Shop</h3>
+                    </div>
+                    <form class="form-inline mt-1" id="searchbar" action="./searchProduct.html">
+                        <input type="text" class="form-control col mr-1" name="searchQuery">
+                        <button type="submit" class="btn btn-tone-4 btn-sm"><i class="fa fa-location-arrow"></i></button>
+                    </form>                 
                 </div>
             </div>
         </nav>

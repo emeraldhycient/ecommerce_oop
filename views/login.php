@@ -47,7 +47,7 @@
                     <label>Email :</label>
                     <input type="email" name="vendor_email_login" id="vendor_email_login" class="form-control mb-2" required important>
                     <label>Password :</label>
-                    <input type="text" name="vendor_pass_login" id="vendor_pass_login" class="form-control mb-2" required important>
+                    <input type="password" name="vendor_pass_login" id="vendor_pass_login" class="form-control mb-2" required important>
                     <input type="submit" class="btn btn-success btn-sm" value="login" style="float:right;">
                 </form>
                 <a href="./register.html" id="registerlink">Become A Vendor</a>
