@@ -1,5 +1,5 @@
 <?php 
- include_once"__connection.php";
+include_once"__connection.php";
 
 class productApi extends dbConnection{
     
@@ -41,7 +41,7 @@ class productApi extends dbConnection{
     }
            
     public function fetchLatestProducts(){
-        $sql = "SELECT * FROM product LIMIT 7,15";
+        $sql = "SELECT * FROM product LIMIT 6,15";
     $q = $this->conn->query($sql);
     $readData = [];
     if($q){
@@ -155,66 +155,26 @@ class productApi extends dbConnection{
         $message = [];
         if($q){
             $message["status"] = "success";
-           $message["redirect"] = "<script>location.href='../views/dashboard.php'</script>";
+            $message["message"] = "deletion successful"; 
         }else{
                $message["status"] = "failed";
                $message["message"] = $this->conn->error; 
         }
         return $message;
     }
-    public function editProduct($title,$longdesc,$price,$img,$quantity,$discount,$category,$video,$productId){
-        $maximumUploadSize = 1000000;
-        $genFileName = $this->generatecharacters();
+    public function editProduct($title,$longdesc,$price,$quantity,$discount,$productId){
         $productId = $productId;
         $title = $this->filter($title);
         $longDesc = $this->filter($longdesc);
         $price = $this->filter($price);
         $quantity = $this->filter($quantity);
-        $discount = $this->filter($discount);
-        $category = $this->filter($category);
+        $discountByPercent = $this->filter($discount);
+        $discount = ($discountByPercent/100)*$price;
         $shop_id = $_SESSION["shop_id"];
         $message = [];
-        if(!empty($video) && !empty($img)){
-            $imgExt = pathinfo($img["name"],PATHINFO_EXTENSION);
-        $imgPath ="../assets/products/".$genFileName.$imgExt;
-        $imgName = $genFileName.".".$imgExt;
-        $imgSize = $img["size"];
-        $vidExt = pathinfo($video["name"],PATHINFO_EXTENSION);
-        $vidPath = "../assets/products/".$genFileName.$vidExt;
-        $vidSize = $video["size"];
-        $vidName = $genFileName.".".$vidExt;
-        if( ($vidSize <= $maximumUploadSize && $imgSize <= $maximumUploadSize) && ($vidSize != 0 && $imgSize != 0)){
-            if(in_array($vidExt,['mp4','mpg','mpeg','m4v']) && in_array($imgExt,['gif','png','jpeg','jpg'])){
-                if(move_uploaded_file($img["tmp_name"],$imgPath) && move_uploaded_file($video["tmp_name"],$vidPath) ){
-                    $sql = "UPDATE product SET id = '$productId',p_title = '$title',longdesc = '$longDesc' ,shop_id = '$shop_id'
-                     ,photo = '$imgName' ,preview = '$vidName' ,quantity = '$quantity',price = '$price' ,discount ='$discount' ,cat = '$category' ";
-                    $q = $this->conn->query($sql);
-                    if($q){
-               $message["status"] = "success";
-               $message["message"] = "file properties okay and file names are vid:".$vidName."while img:".$imgName;
-                    }else{
-                       $message["status"] = "failed";
-                       $message["message"] = $this->conn->error;
-                    }
-                }else{
-                   $message["status"] = "failed";
-                   $message["message"] = "unable to upload your file to the server"; 
-                }
-        }else{
-           $message["status"] = "failed";
-           $message["message"] = "only upload 'mp4','mpg','mpeg','m4v','gif','png','jpeg','jpg'"; 
-        }
-        }else{
-            $message["status"] = "failed";
-            $message["message"] = "<P></P>file size too large.</p><p>current file size,video : ".ceil($vidSize/$maximumUploadSize)."gb
-             picture : ".ceil($imgSize/$maximumUploadSize)."gb</p>
-            <p>expected file size should be 1gb or lesser</p>
-            "; 
-        }
-        }else{
-            $sql = "UPDATE product SET id = '$productId',p_title = '$title',longdesc = '$longDesc' ,shop_id = '$shop_id'
-                     ,quantity = '$quantity',price = '$price' ,discount ='$discount' ,cat = '$category' ";
-                    $q = $this->conn->query($sql);
+            $sql = "UPDATE product SET p_title = '$title',longdesc = '$longDesc' ,shop_id = '$shop_id'
+                     ,quantity = '$quantity',price = '$price' ,discount ='$discount' WHERE id='$productId'";
+             $q = $this->conn->query($sql);
             if($q){
        $message["status"] = "success";
        $message["message"] = "UPDATED SUCCESSFULLY";
@@ -222,7 +182,7 @@ class productApi extends dbConnection{
                $message["status"] = "failed";
                $message["message"] = $this->conn->error;
             }
-        }
+        
          
          return $message;
 

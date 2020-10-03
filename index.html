@@ -11,12 +11,12 @@
 </head>
 
 <body>
-    <header>
+    <header id="headers">
         <nav class="container">
             <div class="row">
                 <div class="col-md-8 m-auto">
-                    <h3 class="mt-2 mb-3"><span class="text-info">Wona</span>-Shop</h3><br>
-                    <form class="form-inline" id="searchbar" action="./views/searchProduct.html">
+                    <h2 class="mt-2 mb-3 text-white"><span class="text-info">Wona</span>-Shop</h2><br>
+                    <form class="form-inline" id="searchbar1" action="./views/searchProduct.html">
                         <input type="text" class="form-control col mr-1" name="searchQuery">
                         <button type="submit" class="btn btn-tone-4 btn-sm"><i class="fa fa-location-arrow"></i></button>
                     </form>
@@ -24,7 +24,11 @@
             </div>
         </nav>
     </header>
-    <hr>
+    <div class="container">
+        <div class="row">
+            <img src="assets/frontPageImg/Shopping-cart-6.png" class="img-thumbnail" alt="" style="height:250px;width:100vw;">
+        </div>
+    </div>
     <main class="container">
         <div class="row">
             <div class="col-md-8 m-auto">
@@ -36,12 +40,17 @@
                 <div class="row handpicked">
 
                 </div><br>
+            </div>
+            <div>
+                <img src="assets/frontPageImg/ecommer2.jpg" class="img-thumbnail" alt="" style="height:250px;width:100vw;">
+            </div>
+            <div class="col-md-8 m-auto">
                 <h5 class="text-muted"> latest deal<small class="ml-2"><a href="">see all</a></small></h5>
                 <div class="row latestdeal">
 
                 </div>
-                </span>
             </div>
+        </div>
     </main><br>
     <footer class="footer bg-primary pb-5  pt-2 mt-5">
         <div class="col-md-8 m-auto ">
@@ -103,16 +112,19 @@
                     console.log(data);
                 } else {
                     $.each(data, (i, val) => {
-                        output = ` <div class="col-md-2 mb-5 flash">
+                        output = ` <div class="col-md-2 flash">
                                         <div class="card">
                                             <div class="card-body">
                                                 <a href="views/single_view.html?productid=${val.productid}&category=${val.category}">
                                                 <img src="assets/products/${val.photo}">
                                                 </a>
                                             </div>
-                                            <div class="card-footer">
-                                            <small>${val.price}</small>
-                                            </div>
+                                            <div class="card-footer p-1">
+                                                <small class="text-muted">${val.title}</small>
+                                                <small class="d-flex"><span class="badge bg-danger text-white"># <strike>${parseInt(val.price).toLocaleString()}</strike></span>
+                                                <span class="badge bg-warning text-white"># ${parseInt(val.discount).toLocaleString()}</span>                         
+                                                </small>
+                                              </div>
                                         </div>
                                     </div>`;
                         $(".flashses").append(output);
@@ -157,18 +169,18 @@
         })
 
         $.ajax({
-                url: './api/api_controller.php',
-                type: 'POST',
-                data: {
-                    "latestdeal": "latestdeal",
-                },
-                dataType: "JSON",
-                success: data => {
-                    if (data.status == "failed") {
-                        console.log(data);
-                    } else {
-                        $.each(data, (i, val) => {
-                            output = ` <div class="col-md-4 mt-2">
+            url: './api/api_controller.php',
+            type: 'POST',
+            data: {
+                "latestdeal": "latestdeal",
+            },
+            dataType: "JSON",
+            success: data => {
+                if (data.status == "failed") {
+                    console.log(data);
+                } else {
+                    $.each(data, (i, val) => {
+                        output = ` <div class="col-md-4 mt-2">
                         <div class="card">
                             <div class="card-body p-1">
                                 <a href="views/single_view.html?productid=${val.productid}&category=${val.category}">
@@ -185,52 +197,12 @@
                             </div>
                         </div>
                     </div>`;
-                            $(".latestdeal").append(output);
-                        });
-                    }
+                        $(".latestdeal").append(output);
+                    });
                 }
-            })
-            /* $("#searchbar").keydown(() => {
-            searchQuery = $("#searchbar").val()
-            if (searchQuery != "") {
-                $.ajax({
-                    url: './api/api_controller.php',
-                    type: 'POST',
-                    data: {
-                        "searchQuery": searchQuery,
-                    },
-                    dataType: "JSON",
-                    success: (data) => {
-                        if (data.status == "failed") {
-                            output = `<li>${data.message}</li>`
-                            $("#searchcontainer").fadeIn()
-                            $("#searchcontainer").append(output)
-                        } else {
-                            $.each(data.data, (i, val) => {
-                                output = `
-                            <li class="d-flex mb-3">
-                            <video src="./assets/products/${val.vid}" muted autoplay class="imgthumbnail w-25"></video>
-                            <div class="ml-2">
-                                <a href="views/single_view.html?productid=${val.productid}&category=${val.category}">
-                            <h6>${val.title}</h6> 
-                            <p>${val.description}</p> 
-                            <span class="badge bg-danger text-white mr-1"># <strike>${parseInt(val.price).toLocaleString()}</strike></span>
-                             <span class="badge bg-success text-white mr-1"># ${parseInt(val.discount).toLocaleString()}</span>
-                            </a>
-                             </div>  
-                            </li>
-                            `
-                                $("#searchcontainer").fadeIn()
-                                $("#searchcontainer").append(output)
-                            })
-                        }
-                    }
-                })
-            } else {
-                $("#searchcontainer").fadeOut()
             }
         })
-*/
+
     })
 </script>
 

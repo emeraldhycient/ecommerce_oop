@@ -2,7 +2,7 @@
  require_once("../api/api_controller.php");
 
  if(isset($_SESSION["shop_id"])){
-            header("location : dashboard.php");
+            header("location: dashboard.php");
  }
 ?>
 <!DOCTYPE html>
@@ -31,7 +31,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 m-auto">
-                <div class="error bg-danger text-white">
+                <div class="shadow-lg error bg-danger ">
                     <p id="error"></p>
                 </div>
             </div>
@@ -67,9 +67,9 @@
                     <label>Email :</label>
                     <input type="email" name="vendor_email" id="vendor_email" class="form-control mb-2" required important>
                     <label>Password :</label>
-                    <input type="text" name="vendor_pass" id="vendor_pass" class="form-control mb-2" required important>
+                    <input type="Password" name="vendor_pass" id="vendor_pass" class="form-control mb-2" required important>
                     <label>Confirm Password :</label>
-                    <input type="text" name="vendor_cpass" id="vendor_cpass" class="form-control mb-2" required important>
+                    <input type="Password" name="vendor_cpass" id="vendor_cpass" class="form-control mb-2" required important>
                     <input type="submit" class="btn btn-primary btn-sm" id="register" value="register" style="float:right;">
                 </form>
             </div>

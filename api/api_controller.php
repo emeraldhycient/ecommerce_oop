@@ -11,6 +11,26 @@ $productApi = new productApi;
 $usersApi = new usersApi;
 $vendorApi = new vendorsApi;
 
+if(isset($_POST["delete"])){
+     $delet = $productApi->deleteProduct($_POST["productid"]);
+     if($delete["status"] == "success"){
+          header("location: dashboard.php");
+     }else{
+          echo $delete["message"];
+     }
+}
+
+ //edit post by vendors
+ if(isset($_POST["editpost"])){
+     $product = $productApi->editProduct($_POST["title"],$_POST["longdesc"],$_POST["price"],$_POST["quantity"]
+      ,$_POST["discount"],$_POST["productId"]);
+      if($product['status'] === 'success'){
+          header("location: dashboard.php");
+     }else{
+                   echo json_encode($product);
+      }
+ }
+
 if(isset($_POST["searchQuery"])){
 echo json_encode($productApi->searchProducts($_POST["searchQuery"]));
 }
@@ -158,6 +178,33 @@ if(isset($_POST["single_view"])){
  }
  }
 
+
+// edit  product
+if(isset($_POST["fetchForEdit"])){
+     $prod =$productApi->singleProduct($_POST["productId"]);
+      $data = [];
+ if($prod["status"] === "success"){
+      $data["status"] = "success";
+  while ($row = $prod["data"]->fetch_object()){
+       $data["data"][$row->id] = array(
+            "id" => $row->id,
+            "productid" => $row->productid,
+            "shop_id" => $row->shop_id,
+            "title" => $row->p_title,
+            "description" => $row->longdesc,
+            "qty" => $row->quantity,
+            "photo" => $row->photo,
+            "vid" => $row->preview,
+            "price"  => $row->price,
+            "discount" => $row->discount,
+            "category" => $row->cat
+       );
+  }
+  echo json_encode($data);
+ }else{
+      echo json_encode($prod);
+ }
+ }
 
  // select other related product
  if(isset($_POST["selectCategory"])){

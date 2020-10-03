@@ -35,7 +35,7 @@
                     </button>
                     <h3 class="mt-2"><span class="text-info">Wona</span>-Shop</h3>
                     </div>
-                    <form class="form-inline mt-1" id="searchbar" action="./searchProduct.html">
+                    <form class="form-inline mt-1" id="searchbar1" action="./searchProduct.html">
                         <input type="text" class="form-control col mr-1" name="searchQuery">
                         <button type="submit" class="btn btn-tone-4 btn-sm"><i class="fa fa-location-arrow"></i></button>
                     </form>                 
@@ -187,7 +187,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2 card m-2 bg-danger text-white">
+                        <div class="col-md-2 card mt-2 bg-danger text-white">
                             <div class="d-flex">
                                 <i class="fa fa-cloud-upload fa-2x mt-3 pr-2"></i>
                                 <div>
@@ -198,7 +198,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 card m-2 bg-warning text-white">
+                        <div class="col-md-2 card mt-2 bg-warning text-white">
                             <div class="d-flex">
                                 <i class="fa fa-camera fa-2x mt-3 pr-2"></i>
                                 <div>
@@ -209,7 +209,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 card m-2 bg-info text-warning">
+                        <div class="col-md-2 card mt-2 bg-info text-warning">
                             <div class="d-flex">
                                 <i class="fa fa-image fa-2x mt-3 pr-2"></i>
                                 <div>
@@ -220,7 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 card m-2 bg-primary text-white">
+                        <div class="col-md-2 card mt-2 bg-primary text-white">
                             <div class="d-flex">
                                 <i class="fa fa-bell mt-3 pr-2" style="font-size:2em;"></i>
                                 <div>
@@ -231,7 +231,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 card m-2 bg-light text-warning">
+                        <div class="col-md-2 card mt-2 bg-light text-warning">
                             <div class="d-flex">
                                 <i class="fa fa-money mt-3 pr-2" style="font-size:2em;"></i>
                                 <div>
@@ -242,7 +242,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 card m-2 bg-success text-warning">
+                        <div class="col-md-2 card mt-2 bg-success text-warning">
                             <div class="d-flex">
                                 <i class="fa fa-envelope mt-3 pr-2" style="font-size:2em;"></i>
                                 <div>
@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 card m-2 bg-dark text-warning text-white">
+                        <div class="col-md-2 card mt-2 bg-dark text-warning text-white">
                             <div class="d-flex">
                                 <i class="fa fa-cart-arrow-down mt-3 pr-2" style="font-size:2em;"></i>
                                 <div>
@@ -326,6 +326,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js "></script>
 <script src="../assets/script.js"></script>
 <script>
+    $(document).ready(()=>{
+
 const queryString = window.location.search;
 
 const urlParams = new URLSearchParams(queryString);
@@ -389,8 +391,11 @@ function outputProducts(data) {
                         <div>${val.description}</div> 
                         <hr>
                         <div class="btn-group">
-                         <button class="btn btn-danger btn-sm"><i class="fa fa-"></i>Delete</button>
-                         <button class="btn btn-info btn-sm"><i class="fa fa-"></i>Edit</button>
+                        <form action="../api/api_controller.php" method="post">
+                        <input type="hidden" name="productid" value="${val.id}">
+                         <button type="submit" name="delete" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-2x"></i></button>
+                         </form>
+                         <button class="btn btn-info btn-sm text-white"><a href="./edit.php?productId=${val.productid}"><i class="fa fa-edit fa-2x text-white"></i></a></button>
                          </div>
                     </div>
                 </div>
@@ -417,7 +422,6 @@ function outputImages(data) {
                          <h6 class="card-title">${val.title}</h6>
                          <h6>QTY Available : ${val.qty} <span class="badge bg-info text-white">Category : ${val.category}</h6>
                          <hr><div class="btn-group">
-                         <button class="btn btn-info btn-sm"><i class="fa fa-"></i>edit</button>
                          </div>
                     </div>
                 </div>
@@ -444,7 +448,6 @@ function outputVideos(data) {
                          <h6 class="card-title">${val.title}</h6>
                          <h6>QTY Available : ${val.qty} <span class="badge bg-info text-white">Category : ${val.category}</h6>
                          <hr><div class="btn-group">
-                         <button class="btn btn-info btn-sm"><i class="fa fa-"></i>Edit</button>
                          </div>
                     </div>
                 </div>
@@ -477,6 +480,8 @@ function outputAccount(data) {
         console.log(data.message)
     }
 }
+
+})
 </script>
 
 </html>
